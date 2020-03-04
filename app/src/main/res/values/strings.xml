@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+
+
+    <!-- Error Message -->
+    <string name="error_message">Error retrieving data. Please try again.</string>
+
+
+
+    <!-- JSON Mapping Keys -->
+    <string name="results">results</string>
+    <string name="poster_path">poster_path</string>
+    <string name="movie_id">id</string>
+</resources>
