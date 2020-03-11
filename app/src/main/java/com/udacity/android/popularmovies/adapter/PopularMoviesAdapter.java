@@ -17,7 +17,11 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
 
     private List<Movie> movies;
 
-    public PopularMoviesAdapter() {}
+    private OnClickMovieListener movieListener;
+
+    public PopularMoviesAdapter(OnClickMovieListener movieListener) {
+        this.movieListener = movieListener;
+    }
 
     @Override
     public PopularMoviesAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -38,18 +42,29 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
         return movies != null && movies.size() !=  0 ? movies.size() : 0;
     }
 
-    class PopularMoviesAdapterViewHolder extends RecyclerView.ViewHolder {
+
+    class PopularMoviesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView movie_iv;
 
         public PopularMoviesAdapterViewHolder(View itemView) {
             super(itemView);
             movie_iv = itemView.findViewById(R.id.list_item_icon);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            movieListener.onClickItem(movies.get(getAdapterPosition()));
         }
     }
 
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
         notifyDataSetChanged();
+    }
+
+    public interface OnClickMovieListener {
+        public void onClickItem(Movie movie);
     }
 }

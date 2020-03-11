@@ -25,23 +25,18 @@ public final class NetworkUtility {
     // API key used to query moviedb. Please replace with your own.
     private static final String MOVIE_DB_API_KEY = "1c38f58dda138334ea280fc62955d062";
 
+    private static final String MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3/movie";
 
-    private static final String MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
-
-    private static final String MOVIE_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
-
-    private static final String POPULARITY = "popularity.desc";
-
+    private static final String MOVIE_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
 
     private static final String API_KEY_PARAM = "api_key";
-    private static final String SORT_BY_PARAM = "sort_by";
 
     private static final String IMAGE_SIZE = "w185";
 
-    public static URL buildURL() {
+    public static URL buildURL(String sortCriteria) {
         Uri builtUri = Uri.parse(MOVIE_DB_BASE_URL).buildUpon()
+                .appendPath(sortCriteria)
                 .appendQueryParameter(API_KEY_PARAM, MOVIE_DB_API_KEY)
-                .appendQueryParameter(SORT_BY_PARAM, POPULARITY)
                 .build();
 
         URL url = null;
@@ -57,7 +52,7 @@ public final class NetworkUtility {
     public static String buildImageURL(String relativePath) {
         return Uri.parse(MOVIE_IMAGE_BASE_URL).buildUpon()
                 .appendPath(IMAGE_SIZE)
-                .appendPath(relativePath)
+                .appendEncodedPath(relativePath)
                 .build()
                 .toString();
     }

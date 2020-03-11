@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">Popular Movies</string>
 
+    <string name="preference_key">preference</string>
 
     <!-- Error Message -->
     <string name="error_message">Error retrieving data. Please try again.</string>
+
+    <string name="release_date_label">Release Date:</string>
+    <string name="average_rating_label">Average Rating:</string>
+    <string name="average_rating_ten_label">/ 10</string>
+
 
 
 
@@ -11,4 +17,16 @@
     <string name="results">results</string>
     <string name="poster_path">poster_path</string>
     <string name="movie_id">id</string>
+    <string name="movie_title">title</string>
+    <string name="average_rating">vote_average</string>
+    <string name="release_date">release_date</string>
+    <string name="description">overview</string>
+
+
+    <!-- Movie preference options list -->
+    <string-array name="movie_preferences">
+        <item>Most Popular</item>
+        <item>Top Rated</item>
+    </string-array>
+
 </resources>
