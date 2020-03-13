@@ -22,7 +22,6 @@ public final class DateUtility {
 
     private static final int DAY_POSITION_START = 8;
 
-
     public static String formatReleaseDate(String jsonReleaseDate) {
         String year = jsonReleaseDate.substring(YEAR_POSITION_START, YEAR_POSITION_END);
         String month = jsonReleaseDate.substring(MONTH_POSITION_START, MONTH_POSITION_END);
@@ -35,9 +34,7 @@ public final class DateUtility {
         return months.get(month) + " " + day + ", " + year;
     }
 
-
     private static boolean isDaySingleDigit(String day) {
-        return day.contains("0");
+        return day.startsWith("0");
     }
-
 }

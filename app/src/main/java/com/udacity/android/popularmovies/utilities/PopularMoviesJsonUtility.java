@@ -44,10 +44,7 @@ public final class PopularMoviesJsonUtility {
         return movies;
     }
 
-
     private static String getStringResource(Context context, int resId) {
         return context.getString(resId);
     }
-
-
 }

@@ -40,8 +40,4 @@ public class DetailActivity extends AppCompatActivity {
         mAverageRating_tv.setText(movie.getAverageRating() + " " + getString(R.string.average_rating_ten_label));
         Picasso.get().load(movie.getImage()).into(mImage_iv);
     }
-
-
-
-
 }
