@@ -65,6 +65,6 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
     }
 
     public interface OnClickMovieListener {
-        public void onClickItem(Movie movie);
+        void onClickItem(Movie movie);
     }
 }

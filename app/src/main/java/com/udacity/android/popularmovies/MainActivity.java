@@ -13,18 +13,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
-import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.android.popularmovies.adapter.PopularMoviesAdapter;
 import com.udacity.android.popularmovies.model.Movie;
-import com.udacity.android.popularmovies.utilities.NetworkUtility;
 import com.udacity.android.popularmovies.utilities.PopularMoviesJsonUtility;
+import com.udacity.android.popularmovies.utilities.VolleyRequestListener;
+import com.udacity.android.popularmovies.utilities.VolleyUtils;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,12 +89,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     
     private void showErrorMessage() {
         mMovies_rv.setVisibility(View.INVISIBLE);
-        //TODO set visibility of error message here
+        mLoadingIndicator_pb.setVisibility(View.INVISIBLE);
+        mErrorMessage_tv.setVisibility(View.VISIBLE);
     }
 
     @Override
     public Loader<List<Movie>> onCreateLoader(int id, final Bundle args) {
-        return new AsyncTaskLoader<List<Movie>>(getApplicationContext()) {
+        return new Loader<List<Movie>>(getApplicationContext()) {
 
             private List<Movie> movies;
 
@@ -111,20 +110,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
 
             @Override
-            public List<Movie> loadInBackground() {
+            protected void onForceLoad() {
+                super.onForceLoad();
                 String sortCriteria = args.getString(SELECTED_SPINNER_ITEM_KEY);
-                URL popularMoviesURL = NetworkUtility.buildURL(sortCriteria);
-                try {
-                    String jsonMoviesString = NetworkUtility
-                                                .getResponseFromHttpRequest(popularMoviesURL);
-                    List<Movie> movies = PopularMoviesJsonUtility.getMoviesFromJsonString(
-                                                                        getApplicationContext(),
-                                                                        jsonMoviesString);
-                    return movies;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return null;
-                }
+                VolleyUtils.fetchMovieData(getApplicationContext(), sortCriteria,
+                        new VolleyRequestListener() {
+                            @Override
+                            public void onResponse(String response) {
+                                List<Movie> movies = PopularMoviesJsonUtility.getMoviesFromJsonString(
+                                        getApplicationContext(),
+                                        response);
+                                deliverResult(movies);
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                showErrorMessage();
+                            }
+                        });
             }
 
             @Override

@@ -8,7 +8,8 @@
     <ImageView
         android:id="@+id/list_item_icon"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="175dp"
+        android:padding="5dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
