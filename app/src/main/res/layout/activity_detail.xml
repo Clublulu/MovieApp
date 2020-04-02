@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -27,7 +26,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/bree_serif"
             tools:text="Lord of the Rings: The Two Towers"
-            android:textSize="24sp"
+            android:textSize="@dimen/title_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintStart_toStartOf="@+id/view"
             app:layout_constraintTop_toTopOf="@+id/view" />
@@ -50,7 +49,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/pt_sans"
             tools:text="December 18, 2002"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size"
             app:layout_constraintStart_toEndOf="@+id/detail_movie_image"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -60,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/pt_sans"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size"
             app:layout_constraintStart_toStartOf="@+id/release_date_tv"
             app:layout_constraintTop_toBottomOf="@+id/release_date_tv"
             tools:text="8.0 / 10.0" />
@@ -73,18 +72,10 @@
             android:fontFamily="@font/pt_sans"
             android:paddingLeft="5dp"
             android:paddingRight="30dp"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size"
             app:layout_constraintStart_toStartOf="@+id/detail_movie_image"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_image"
             tools:text="Frodo continues his journey through the
                         mountainous terrain to destroy the ring once and for all." />
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
 </ScrollView>

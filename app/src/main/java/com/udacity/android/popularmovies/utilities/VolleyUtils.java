@@ -12,10 +12,10 @@ import com.android.volley.toolbox.StringRequest;
  */
 public class VolleyUtils {
 
-
     public static void fetchMovieData(final Context context, String sortCriteria, final VolleyRequestListener listener) {
+        NetworkUtility networkUtility = NetworkUtility.getInstance(context);
         StringRequest request = new StringRequest(Request.Method.GET,
-                NetworkUtility.buildURL(sortCriteria),
+                networkUtility.buildURL(sortCriteria),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -29,11 +29,11 @@ public class VolleyUtils {
                     }
                 });
 
-        NetworkUtility.getInstance(context).addRequestToQueue(request);
+        networkUtility.addRequestToQueue(request);
     }
 
-    public static String buildImageUrl(String poster_path) {
-        return NetworkUtility.buildImageURL(poster_path);
+    public static String buildImageUrl(Context context, String poster_path) {
+        return NetworkUtility.getInstance(context).buildImageURL(poster_path);
     }
 }
 

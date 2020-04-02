@@ -31,7 +31,7 @@ public final class PopularMoviesJsonUtility {
                 String title = movie.getString(getStringResource(context, R.string.movie_title));
 
                 movies.add(new Movie(movie_id,
-                                         VolleyUtils.buildImageUrl(poster_path),
+                                         VolleyUtils.buildImageUrl(context, poster_path),
                                          title,
                                          averageRating,
                                          description,
