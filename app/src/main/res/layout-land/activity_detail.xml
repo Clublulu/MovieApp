@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:background="#3F51B5"
+            android:backgroundTint="#4CAF68"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bree_serif"
+            android:textSize="@dimen/title_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@+id/view"
+            tools:text="Lord of the Rings: The Two Towers" />
+
+        <ImageView
+            android:id="@+id/detail_movie_image"
+            android:layout_width="123dp"
+            android:layout_height="170dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/release_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/pt_sans"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintStart_toEndOf="@+id/detail_movie_image"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            tools:text="December 18, 2002" />
+
+        <TextView
+            android:id="@+id/average_rating_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="@font/pt_sans"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintStart_toEndOf="@+id/release_date_tv"
+            app:layout_constraintTop_toTopOf="@+id/release_date_tv"
+            tools:text="8.0 / 10.0" />
+
+        <TextView
+            android:id="@+id/movie_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:paddingRight="8dp"
+            android:fontFamily="@font/pt_sans"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/detail_movie_image"
+            app:layout_constraintTop_toBottomOf="@+id/release_date_tv"
+            tools:text="Frodo continues his journey through the mountainous terrain to destroy the ring once and for all." />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
