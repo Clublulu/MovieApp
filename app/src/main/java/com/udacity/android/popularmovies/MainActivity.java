@@ -19,13 +19,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.android.popularmovies.adapter.PopularMoviesAdapter;
 import com.udacity.android.popularmovies.model.Movie;
-import com.udacity.android.popularmovies.utilities.PopularMoviesJsonUtility;
-import com.udacity.android.popularmovies.utilities.VolleyRequestListener;
-import com.udacity.android.popularmovies.utilities.VolleyUtils;
+import com.udacity.android.popularmovies.utilities.NetworkUtility;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Movie>>,
         PopularMoviesAdapter.OnClickMovieListener,
@@ -113,21 +115,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             protected void onForceLoad() {
                 super.onForceLoad();
                 String sortCriteria = args.getString(SELECTED_SPINNER_ITEM_KEY);
-                VolleyUtils.fetchMovieData(getApplicationContext(), sortCriteria,
-                        new VolleyRequestListener() {
-                            @Override
-                            public void onResponse(String response) {
-                                List<Movie> movies = PopularMoviesJsonUtility.getMoviesFromJsonString(
-                                        getApplicationContext(),
-                                        response);
-                                deliverResult(movies);
-                            }
+                Call<List<Movie>> sortedMovies = NetworkUtility
+                        .getInstance(getApplicationContext())
+                        .fetchSortedMovies(sortCriteria);
 
-                            @Override
-                            public void onError(String error) {
-                                showErrorMessage();
-                            }
-                        });
+                sortedMovies.enqueue(new Callback<List<Movie>>() {
+                    @Override
+                    public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+                        deliverResult(response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Movie>> call, Throwable t) {
+                        showErrorMessage();
+                    }
+                });
             }
 
             @Override
