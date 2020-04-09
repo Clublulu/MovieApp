@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.android.popularmovies.adapter.PopularMoviesAdapter;
 import com.udacity.android.popularmovies.model.Movie;
-import com.udacity.android.popularmovies.utilities.NetworkUtility;
+import com.udacity.android.popularmovies.data.network.NetworkUtility;
 
 import java.util.HashMap;
 import java.util.List;

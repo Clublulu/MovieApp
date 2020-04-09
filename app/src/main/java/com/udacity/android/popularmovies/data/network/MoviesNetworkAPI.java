@@ -1,4 +1,4 @@
-package com.udacity.android.popularmovies.utilities;
+package com.udacity.android.popularmovies.data.network;
 
 import com.udacity.android.popularmovies.model.Movie;
 

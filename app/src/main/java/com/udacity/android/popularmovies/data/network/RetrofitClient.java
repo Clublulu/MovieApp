@@ -1,4 +1,4 @@
-package com.udacity.android.popularmovies.utilities;
+package com.udacity.android.popularmovies.data.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -9,11 +9,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.udacity.android.popularmovies.R;
+import com.udacity.android.popularmovies.data.network.NetworkUtility;
 import com.udacity.android.popularmovies.model.Movie;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

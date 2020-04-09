@@ -1,10 +1,11 @@
-package com.udacity.android.popularmovies.utilities;
+package com.udacity.android.popularmovies.data.network;
 
 import android.content.Context;
 import android.net.Uri;
 
 import com.google.gson.reflect.TypeToken;
 import com.udacity.android.popularmovies.model.Movie;
+import com.udacity.android.popularmovies.utilities.MovieListDeserializer;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class NetworkUtility {
         return service.getSortedMovies(sortCriteria, MOVIE_DB_API_KEY);
     }
 
-    static String buildImageURL(String relativePath) {
+    public static String buildImageURL(String relativePath) {
         return Uri.parse(MOVIE_IMAGE_BASE_URL).buildUpon()
                 .appendPath(IMAGE_SIZE)
                 .appendEncodedPath(relativePath)
