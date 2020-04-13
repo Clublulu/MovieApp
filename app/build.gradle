@@ -29,10 +29,11 @@ android {
 }
 
 dependencies {
-    def lifecycle_version = "2.2.0"
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     // LiveData
@@ -51,8 +52,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
-    // Annotation processor
+
+    // Annotation processors
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

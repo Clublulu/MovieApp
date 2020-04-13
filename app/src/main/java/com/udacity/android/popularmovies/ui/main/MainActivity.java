@@ -1,4 +1,4 @@
-package com.udacity.android.popularmovies;
+package com.udacity.android.popularmovies.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,32 +12,29 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.udacity.android.popularmovies.adapter.PopularMoviesAdapter;
+import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.model.Movie;
-import com.udacity.android.popularmovies.data.network.NetworkUtility;
+import com.udacity.android.popularmovies.ui.detail.DetailActivity;
+import com.udacity.android.popularmovies.utilities.ViewModelInjectorUtil;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Movie>>,
+public class MainActivity extends AppCompatActivity implements
         PopularMoviesAdapter.OnClickMovieListener,
         AdapterView.OnItemSelectedListener {
 
-    private static final int FETCH_MOVIES_LOADER = 1;
-    private static final String SELECTED_SPINNER_ITEM_KEY = "SPINNER_ITEM_KEY";
 
     private RecyclerView mMovies_rv;
     private PopularMoviesAdapter mMoviesAdapter;
+    private int mPosition = RecyclerView.NO_POSITION;
+    private MainActivityViewModel mViewModel;
+
+
     private ProgressBar mLoadingIndicator_pb;
     private TextView mErrorMessage_tv;
 
@@ -64,6 +61,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mMoviesAdapter = new PopularMoviesAdapter(this);
         mMovies_rv.setAdapter(mMoviesAdapter);
+
+        MainActivityViewModelFactory factory = ViewModelInjectorUtil
+                .provideMainActivityViewModelFactory(getApplicationContext());
+        mViewModel = new ViewModelProvider(this, factory).get(MainActivityViewModel.class);
+
+        mViewModel.getMovies().observe(this, movies -> {
+            mMoviesAdapter.swapMovies(movies);
+            if (mPosition == RecyclerView.NO_POSITION)
+                mPosition = 0;
+            mMovies_rv.smoothScrollToPosition(mPosition);
+
+            if(movies != null && movies.size() != 0)
+                showMovieData();
+            else
+                showLoading();
+        });
     }
 
     @Override
@@ -85,89 +98,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     
     private void showMovieData() {
         mErrorMessage_tv.setVisibility(View.INVISIBLE);
+        mLoadingIndicator_pb.setVisibility(View.INVISIBLE);
         mMovies_rv.setVisibility(View.VISIBLE);
-        
     }
     
-    private void showErrorMessage() {
+    private void showLoading() {
         mMovies_rv.setVisibility(View.INVISIBLE);
-        mLoadingIndicator_pb.setVisibility(View.INVISIBLE);
-        mErrorMessage_tv.setVisibility(View.VISIBLE);
+        mLoadingIndicator_pb.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public Loader<List<Movie>> onCreateLoader(int id, final Bundle args) {
-        return new Loader<List<Movie>>(getApplicationContext()) {
-
-            private List<Movie> movies;
-
-            @Override
-            protected void onStartLoading() {
-                if(movies != null) {
-                    deliverResult(movies);
-                } else {
-                    forceLoad();
-                    mLoadingIndicator_pb.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            protected void onForceLoad() {
-                super.onForceLoad();
-                String sortCriteria = args.getString(SELECTED_SPINNER_ITEM_KEY);
-                Call<List<Movie>> sortedMovies = NetworkUtility
-                        .getInstance(getApplicationContext())
-                        .fetchSortedMovies(sortCriteria);
-
-                sortedMovies.enqueue(new Callback<List<Movie>>() {
-                    @Override
-                    public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                        deliverResult(response.body());
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Movie>> call, Throwable t) {
-                        showErrorMessage();
-                    }
-                });
-            }
-
-            @Override
-            public void deliverResult(List<Movie> data) {
-                movies = data;
-                super.deliverResult(data);
-            }
-        };
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<Movie>> loader, List<Movie> data) {
-        mLoadingIndicator_pb.setVisibility(View.INVISIBLE);
-        mMoviesAdapter.setMovies(data);
-        if (data == null || data.isEmpty()) {
-            showErrorMessage();
-        } else {
-            showMovieData();
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<Movie>> loader) { }
 
     @Override
     public void onClickItem(Movie movie) {
         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-        intent.putExtra(DetailActivity.DETAIL_ACTIVITY_INTENT_KEY, movie);
+        intent.putExtra(DetailActivity.DETAIL_ACTIVITY_INTENT_EXTRA, movie.movieId);
         startActivity(intent);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        mMoviesAdapter.setMovies(null);
         String selectedItem = (String) parent.getItemAtPosition(position);
-        Bundle bundle = new Bundle();
-        bundle.putString(SELECTED_SPINNER_ITEM_KEY, sortCriteriaMap.get(selectedItem));
-        LoaderManager.getInstance(this).restartLoader(FETCH_MOVIES_LOADER, bundle, this);
+        mViewModel.retrieveMovies(sortCriteriaMap.get(selectedItem));
     }
 
     @Override

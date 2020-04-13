@@ -3,7 +3,7 @@ package com.udacity.android.popularmovies.utilities;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class DateUtility {
+public final class DateUtil {
 
     private static Map<String, String> months = new HashMap<String, String>() {{
         put("01", "January");   put("02", "February");

@@ -1,10 +1,11 @@
-package com.udacity.android.popularmovies.adapter;
+package com.udacity.android.popularmovies.ui.main;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdapter.PopularMoviesAdapterViewHolder> {
 
-    private List<Movie> movies;
+    private List<Movie> mMovies;
 
     private OnClickMovieListener movieListener;
 
@@ -33,13 +34,13 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
 
     @Override
     public void onBindViewHolder(PopularMoviesAdapterViewHolder holder, int position) {
-        Movie movie = movies.get(position);
-        Picasso.get().load(movie.getImage()).into(holder.movie_iv);
+        Movie movie = mMovies.get(position);
+        Picasso.get().load(movie.image).into(holder.movie_iv);
     }
 
     @Override
     public int getItemCount() {
-        return movies != null && movies.size() !=  0 ? movies.size() : 0;
+        return mMovies != null && mMovies.size() !=  0 ? mMovies.size() : 0;
     }
 
 
@@ -55,13 +56,26 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
 
         @Override
         public void onClick(View v) {
-            movieListener.onClickItem(movies.get(getAdapterPosition()));
+            movieListener.onClickItem(mMovies.get(getAdapterPosition()));
         }
     }
 
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
-        notifyDataSetChanged();
+    public void swapMovies(List<Movie> newMovies) {
+        // notify data set changed only when movies in the adapter are initially empty
+        if (mMovies == null) {
+            mMovies = newMovies;
+            notifyDataSetChanged();
+        }
+        // otherwise use DiffUtils' calculateDiff method to calculate changes between
+        // old & new data, and update the resulting list accordingly
+        else {
+            DiffUtil.DiffResult result = DiffUtil
+                    .calculateDiff(new MoviesListDifferenceCallback(mMovies, newMovies));
+            mMovies = newMovies;
+            result.dispatchUpdatesTo(this);
+        }
+
+
     }
 
     public interface OnClickMovieListener {

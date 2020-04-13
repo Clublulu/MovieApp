@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.udacity.android.popularmovies.R;
-import com.udacity.android.popularmovies.data.network.NetworkUtility;
+import com.udacity.android.popularmovies.data.network.MoviesDataSource;
 import com.udacity.android.popularmovies.model.Movie;
 
 import java.lang.reflect.Type;
@@ -40,7 +40,7 @@ public final class MovieListDeserializer implements JsonDeserializer<List<Movie>
             String title = jsonMovie.get(getStringResource(mContext, R.string.movie_title)).getAsString();
 
             movies.add(new Movie(movie_id,
-                    NetworkUtility.buildImageURL(poster_path),
+                    MoviesDataSource.buildImageURL(poster_path),
                     title,
                     averageRating,
                     description,

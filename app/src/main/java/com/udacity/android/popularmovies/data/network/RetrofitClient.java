@@ -1,5 +1,7 @@
 package com.udacity.android.popularmovies.data.network;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -9,17 +11,27 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Helper class to build and retrieve a Retrofit instance.
+ *
+ */
 public class RetrofitClient {
 
-    private static Retrofit mRetrofit;
+    private static final String LOG_TAG = RetrofitClient.class.getSimpleName();
 
+    private static Retrofit mRetrofit;
+    private static final Object LOCK = new Object();
 
     public static Retrofit getInstance(Type type, Object typeAdapter) {
+        Log.d(LOG_TAG, "Getting Retrofit instance.");
         if (mRetrofit == null) {
-            mRetrofit = new Retrofit.Builder()
-                    .baseUrl(NetworkUtility.MOVIE_DB_BASE_URL)
-                    .addConverterFactory(createGsonConverter(type, typeAdapter))
-                    .build();
+            synchronized (LOCK) {
+                mRetrofit = new Retrofit.Builder()
+                        .baseUrl(MoviesDataSource.MOVIE_DB_BASE_URL)
+                        .addConverterFactory(createGsonConverter(type, typeAdapter))
+                        .build();
+                Log.d(LOG_TAG, "Created Retrofit instance.");
+            }
         }
 
         return mRetrofit;
