@@ -2,6 +2,7 @@ package com.udacity.android.popularmovies.data.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -23,8 +24,8 @@ public interface MoviesDao {
      *
      * @return LiveData<List<Movie>>
      */
-    @Query("SELECT * FROM movie_table")
-    LiveData<List<Movie>> getMovies();
+    @Query("SELECT * FROM movie_table WHERE sort_criteria = :sortCriteria")
+    LiveData<List<Movie>> getMovies(String sortCriteria);
 
 
     /**
@@ -44,6 +45,23 @@ public interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovies(List<Movie> movies);
 
+
+    /**
+     * Returns a count of movies based on the chosen sort criteria
+     *
+     * @param sortCriteria
+     * @return number of movies based on sort criteria
+     */
+    @Query("SELECT COUNT(movie_id) FROM movie_table WHERE sort_criteria = :sortCriteria")
+    int getMovieCount(String sortCriteria);
+
+
+    /**
+     * Deletes all entries from movie_table.
+     *
+     */
+    @Query("DELETE FROM movie_table")
+    void deleteAllMovies();
 
 
 }

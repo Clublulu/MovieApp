@@ -1,9 +1,15 @@
 package com.udacity.android.popularmovies.model;
 
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.squareup.picasso.Picasso;
 
 @Entity(tableName = "movie_table")
 public class Movie {
@@ -19,7 +25,7 @@ public class Movie {
     public String title;
 
     @ColumnInfo(name = "vote_average")
-    public double averageRating;
+    public String averageRating;
 
     @ColumnInfo(name = "description")
     public String description;
@@ -27,8 +33,21 @@ public class Movie {
     @ColumnInfo(name = "release_date")
     public String releaseDate;
 
+    @ColumnInfo(name = "sort_criteria")
+    public String sortCriteria;
 
-    public Movie(int movieId, String image, String title, double averageRating, String description, String releaseDate) {
+    public Movie(int movieId, String image, String title, String averageRating, String description, String releaseDate, String sortCriteria) {
+        this.movieId = movieId;
+        this.image = image;
+        this.title = title;
+        this.averageRating = averageRating;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.sortCriteria = sortCriteria;
+    }
+
+    @Ignore
+    public Movie(int movieId, String image, String title, String averageRating, String description, String releaseDate) {
         this.movieId = movieId;
         this.image = image;
         this.title = title;
@@ -36,4 +55,11 @@ public class Movie {
         this.description = description;
         this.releaseDate = releaseDate;
     }
+
+
+    @BindingAdapter("imageUrl")
+    public static void loadImage(ImageView view, String imageUrl) {
+        Picasso.get().load(imageUrl).into(view);
+    }
+
 }

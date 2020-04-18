@@ -3,17 +3,21 @@ package com.udacity.android.popularmovies.ui.main;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
 import com.udacity.android.popularmovies.R;
+import com.udacity.android.popularmovies.databinding.MoviesListItemBinding;
 import com.udacity.android.popularmovies.model.Movie;
 
 import java.util.List;
 
+/**
+ * Adapter class used to create views, bind data to them, and attach the views to the RecyclerView.
+ *
+ */
 public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdapter.PopularMoviesAdapterViewHolder> {
 
     private List<Movie> mMovies;
@@ -27,15 +31,15 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
     @Override
     public PopularMoviesAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View view = inflater.inflate(R.layout.movies_list_item, viewGroup, false);
+        MoviesListItemBinding binding = DataBindingUtil
+                .inflate(inflater, R.layout.movies_list_item, viewGroup, false);
 
-        return new PopularMoviesAdapterViewHolder(view);
+        return new PopularMoviesAdapterViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(PopularMoviesAdapterViewHolder holder, int position) {
-        Movie movie = mMovies.get(position);
-        Picasso.get().load(movie.image).into(holder.movie_iv);
+        holder.bind(mMovies);
     }
 
     @Override
@@ -46,17 +50,22 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
 
     class PopularMoviesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView movie_iv;
+        public MoviesListItemBinding binding;
 
-        public PopularMoviesAdapterViewHolder(View itemView) {
-            super(itemView);
-            movie_iv = itemView.findViewById(R.id.list_item_icon);
-            itemView.setOnClickListener(this);
+        public PopularMoviesAdapterViewHolder(MoviesListItemBinding binding) {
+            super(binding.getRoot());
+            binding.getRoot().setOnClickListener(this);
+            this.binding = binding;
         }
 
         @Override
         public void onClick(View v) {
             movieListener.onClickItem(mMovies.get(getAdapterPosition()));
+        }
+
+        void bind(List<Movie> movies) {
+            binding.setMovie(movies.get(getAdapterPosition()));
+            binding.executePendingBindings();
         }
     }
 

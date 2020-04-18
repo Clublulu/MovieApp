@@ -16,18 +16,22 @@ public class AppExecutors {
 
     private static AppExecutors sInstance;
     private static final Object LOCK = new Object();
-    private final Executor mDiskIO;
+    private final Executor mDiskExecutor;
+    private final Executor mNetworkExecutor;
 
 
-    private AppExecutors(Executor diskIO) {
-        mDiskIO = diskIO;
+    private AppExecutors(Executor disk, Executor network) {
+        mDiskExecutor = disk;
+        mNetworkExecutor = network;
     }
 
     public static AppExecutors getInstance() {
         Log.d(LOG_TAG, "Getting AppExecutors instance.");
         if (sInstance == null) {
             synchronized (LOCK) {
-                sInstance = new AppExecutors(Executors.newSingleThreadExecutor());
+                sInstance = new AppExecutors(
+                        Executors.newSingleThreadExecutor(),
+                        Executors.newFixedThreadPool(2));
                 Log.d(LOG_TAG, "AppExecutors instance created.");
             }
         }
@@ -35,8 +39,11 @@ public class AppExecutors {
         return sInstance;
     }
 
-    public Executor getDiskIO() {
-        return mDiskIO;
+    public Executor getDiskExecutor() {
+        return mDiskExecutor;
     }
 
+    public Executor getNetworkExecutor() {
+        return mNetworkExecutor;
+    }
 }

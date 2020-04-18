@@ -26,12 +26,17 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-
+    // WorkManager
+    implementation "androidx.work:work-runtime:$work_version"
     // Room
     implementation "androidx.room:room-runtime:$room_version"
     // ViewModel

@@ -26,7 +26,6 @@ public class MoviesRepository {
     private static MoviesDataSource mDataSource;
     private static AppExecutors mExecutors;
 
-
     private MoviesRepository(MoviesDao moviesDao, MoviesDataSource dataSource, AppExecutors executors) {
         mMoviesDao = moviesDao;
         mDataSource = dataSource;
@@ -34,16 +33,15 @@ public class MoviesRepository {
 
         LiveData<List<Movie>> movies = mDataSource.getMovies();
         movies.observeForever(newMovies -> {
-            mExecutors.getDiskIO().execute(() -> {
-                Log.d(LOG_TAG, "Inserted new movies.");
+            mExecutors.getDiskExecutor().execute(() -> {
+                Log.d(LOG_TAG, "Inserting new movies.");
                 mMoviesDao.insertMovies(newMovies);
+                Log.d(LOG_TAG, "Movies inserted.");
             });
         });
 
-    }
-
-    public void retrieveMovies(String sortCriteria) {
-        mDataSource.retrieveMovies(sortCriteria);
+        // schedule a unique recurring task that fetches data every 24 hr.
+        mDataSource.scheduleRecurringDataFetchTask();
     }
 
     public static MoviesRepository getInstance(MoviesDao moviesDao,
@@ -59,17 +57,21 @@ public class MoviesRepository {
         return sInstance;
     }
 
-
-    public LiveData<List<Movie>> getMovies() {
-        return mMoviesDao.getMovies();
+    public LiveData<List<Movie>> getLatestMovies(String sortCriteria) {
+        mExecutors.getNetworkExecutor().execute(() -> {
+            if (isDataFetchNeeded(sortCriteria)) {
+                mDataSource.retrieveMovies(sortCriteria);
+            }
+        });
+        return mMoviesDao.getMovies(sortCriteria);
     }
 
-    public LiveData<Movie> getMovie(int movieId) {
+    public LiveData<Movie> getMovieById(int movieId) {
         return mMoviesDao.getMovieById(movieId);
     }
 
 
-
-
-
+    private boolean isDataFetchNeeded(String sortCriteria) {
+        return mMoviesDao.getMovieCount(sortCriteria) <= 0;
+    }
 }

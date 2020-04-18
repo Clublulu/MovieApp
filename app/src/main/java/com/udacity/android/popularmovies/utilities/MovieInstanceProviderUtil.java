@@ -11,19 +11,25 @@ import com.udacity.android.popularmovies.ui.detail.DetailActivityViewModelFactor
 import com.udacity.android.popularmovies.ui.main.MainActivityViewModelFactory;
 
 /**
- * Utility class that returns a View Model Factory for its corresponding Activity.
+ * Utility class that provides Model View instances for both the main and detail activities,
+ * in addition to providing an instance of the Movies Data Source when triggered from running a service.
  *
  */
-public class ViewModelInjectorUtil {
+public class MovieInstanceProviderUtil {
 
     public static DetailActivityViewModelFactory provideDetailActivityViewModelFactory(Context context, int movieId) {
         MoviesRepository repository = getRepository(context);
         return new DetailActivityViewModelFactory(repository, movieId);
     }
 
-    public static MainActivityViewModelFactory provideMainActivityViewModelFactory(Context context) {
+    public static MainActivityViewModelFactory provideMainActivityViewModelFactory(Context context, String sortCriteria) {
         MoviesRepository repository = getRepository(context);
-        return new MainActivityViewModelFactory(repository);
+        return new MainActivityViewModelFactory(repository, sortCriteria);
+    }
+
+    public static MoviesDataSource provideMoviesDataSource(Context context) {
+        getRepository(context);
+        return MoviesDataSource.getInstance(context);
     }
 
     private static MoviesRepository getRepository(Context context) {

@@ -35,6 +35,7 @@ public final class MovieListDeserializer implements JsonDeserializer<List<Movie>
             String poster_path = jsonMovie.get(getStringResource(mContext, R.string.poster_path)).getAsString();
             int movie_id = jsonMovie.get(getStringResource(mContext, R.string.movie_id)).getAsInt();
             double averageRating = jsonMovie.get(getStringResource(mContext, R.string.average_rating)).getAsDouble();
+            String averageRatingString = averageRating + " " + getStringResource(mContext, R.string.average_rating_ten_label);
             String description = jsonMovie.get(getStringResource(mContext, R.string.description)).getAsString();
             String releaseDate = jsonMovie.get(getStringResource(mContext, R.string.release_date)).getAsString();
             String title = jsonMovie.get(getStringResource(mContext, R.string.movie_title)).getAsString();
@@ -42,7 +43,7 @@ public final class MovieListDeserializer implements JsonDeserializer<List<Movie>
             movies.add(new Movie(movie_id,
                     MoviesDataSource.buildImageURL(poster_path),
                     title,
-                    averageRating,
+                    averageRatingString,
                     description,
                     releaseDate));
         }

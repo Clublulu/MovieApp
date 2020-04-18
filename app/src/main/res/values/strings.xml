@@ -25,8 +25,16 @@
 
     <!-- Movie preference options list -->
     <string-array name="movie_preferences">
-        <item>Most Popular</item>
-        <item>Top Rated</item>
+        <item>@string/popular_label</item>
+        <item>@string/top_rated_label</item>
     </string-array>
+
+
+    <!-- Shared Preferences values -->
+    <string name="popular_label">Popular</string>
+    <string name="top_rated_label">Top Rated</string>
+    <string name="sort_criteria_key">sort_criteria</string>
+    <string name="popular">popular</string>
+    <string name="top_rated">top_rated</string>
 
 </resources>

@@ -17,13 +17,14 @@ public class MainActivityViewModel extends ViewModel {
     private static MoviesRepository mRepository;
     private LiveData<List<Movie>> mMovies;
 
-    public MainActivityViewModel(MoviesRepository repository) {
+
+    public MainActivityViewModel(MoviesRepository repository, String sortCriteria) {
         mRepository = repository;
-        mMovies = mRepository.getMovies();
+        mMovies = mRepository.getLatestMovies(sortCriteria);
     }
 
-    public void retrieveMovies(String sortCriteria) {
-        mRepository.retrieveMovies(sortCriteria);
+    public void getLatestMovies(String sortCriteria) {
+        mMovies = mRepository.getLatestMovies(sortCriteria);
     }
 
     public LiveData<List<Movie>> getMovies() {

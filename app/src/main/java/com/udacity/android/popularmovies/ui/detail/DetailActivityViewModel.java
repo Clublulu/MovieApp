@@ -17,7 +17,7 @@ public class DetailActivityViewModel extends ViewModel {
 
     public DetailActivityViewModel(MoviesRepository repository, int movieId) {
         mRepository = repository;
-        mMovie = mRepository.getMovie(movieId);
+        mMovie = mRepository.getMovieById(movieId);
     }
 
     public LiveData<Movie> getMovie() {
