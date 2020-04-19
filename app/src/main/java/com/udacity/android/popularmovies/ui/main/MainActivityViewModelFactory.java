@@ -12,15 +12,13 @@ import com.udacity.android.popularmovies.data.MoviesRepository;
 public class MainActivityViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final MoviesRepository mMoviesRepository;
-    private static String mSortCriteria;
 
-    public MainActivityViewModelFactory(MoviesRepository repository, String sortCriteria) {
+    public MainActivityViewModelFactory(MoviesRepository repository) {
         mMoviesRepository = repository;
-        mSortCriteria = sortCriteria;
     }
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-        return (T) new MainActivityViewModel(mMoviesRepository, mSortCriteria);
+        return (T) new MainActivityViewModel(mMoviesRepository);
     }
 }

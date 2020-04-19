@@ -1,6 +1,8 @@
 package com.udacity.android.popularmovies.ui.main;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.udacity.android.popularmovies.data.MoviesRepository;
@@ -15,19 +17,21 @@ import java.util.List;
 public class MainActivityViewModel extends ViewModel {
 
     private static MoviesRepository mRepository;
-    private LiveData<List<Movie>> mMovies;
+    private MutableLiveData<String> mSortCriteria;
 
 
-    public MainActivityViewModel(MoviesRepository repository, String sortCriteria) {
+    public MainActivityViewModel(MoviesRepository repository) {
         mRepository = repository;
-        mMovies = mRepository.getLatestMovies(sortCriteria);
+        mSortCriteria = new MutableLiveData<>();
     }
 
     public void getLatestMovies(String sortCriteria) {
-        mMovies = mRepository.getLatestMovies(sortCriteria);
+        mSortCriteria.setValue(sortCriteria);
     }
 
     public LiveData<List<Movie>> getMovies() {
-        return mMovies;
+        return Transformations.switchMap(
+                mSortCriteria,
+                sortCriteria -> mRepository.getLatestMovies(sortCriteria));
     }
 }

@@ -50,9 +50,8 @@ public class MainActivity extends AppCompatActivity implements
         mErrorMessage_tv = findViewById(R.id.tv_error_message_display);
         setupRecyclerView();
 
-        String prefSortCriteria = getPrefSortCriteria();
         MainActivityViewModelFactory factory = MovieInstanceProviderUtil
-                .provideMainActivityViewModelFactory(getApplicationContext(), prefSortCriteria);
+                .provideMainActivityViewModelFactory(getApplicationContext());
         mViewModel = new ViewModelProvider(this, factory).get(MainActivityViewModel.class);
         mViewModel.getMovies().observe(this, movies -> {
             mMoviesAdapter.swapMovies(movies);

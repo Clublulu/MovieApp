@@ -18,13 +18,11 @@ import com.udacity.android.popularmovies.ui.main.MainActivityViewModelFactory;
 public class MovieInstanceProviderUtil {
 
     public static DetailActivityViewModelFactory provideDetailActivityViewModelFactory(Context context, int movieId) {
-        MoviesRepository repository = getRepository(context);
-        return new DetailActivityViewModelFactory(repository, movieId);
+        return new DetailActivityViewModelFactory(getRepository(context), movieId);
     }
 
-    public static MainActivityViewModelFactory provideMainActivityViewModelFactory(Context context, String sortCriteria) {
-        MoviesRepository repository = getRepository(context);
-        return new MainActivityViewModelFactory(repository, sortCriteria);
+    public static MainActivityViewModelFactory provideMainActivityViewModelFactory(Context context) {
+        return new MainActivityViewModelFactory(getRepository(context));
     }
 
     public static MoviesDataSource provideMoviesDataSource(Context context) {
@@ -33,10 +31,10 @@ public class MovieInstanceProviderUtil {
     }
 
     private static MoviesRepository getRepository(Context context) {
-        MoviesDatabase database = MoviesDatabase.getInstance(context);
-        MoviesDataSource dataSource = MoviesDataSource.getInstance(context);
-        AppExecutors executors = AppExecutors.getInstance();
-        return MoviesRepository.getInstance(database.moviesDao(), dataSource, executors);
+        return MoviesRepository.getInstance(
+                MoviesDatabase.getInstance(context).moviesDao(),
+                MoviesDataSource.getInstance(context),
+                AppExecutors.getInstance());
     }
 
 }
