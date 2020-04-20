@@ -1,18 +1,15 @@
 package com.udacity.android.popularmovies.ui.detail;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.databinding.ActivityDetailBinding;
-import com.udacity.android.popularmovies.model.Movie;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
 public class DetailActivity extends AppCompatActivity {

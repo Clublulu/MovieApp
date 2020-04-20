@@ -95,27 +95,6 @@ public class MoviesRepository {
         mExecutors.getDiskExecutor().execute(() -> mMoviesDao.updateFavoriteMovie(movieId, isFavorite));
     }
 
-    /**
-     * Checks to see whether the users marked any movies favorite.
-     * This method is used to determine whether to add a "Favorites" item to the Spinner
-     *
-     * @return favorite movie count
-     */
-    public boolean hasFavoriteMovies() {
-        Callable<Integer> callable = () -> mMoviesDao.getFavoriteMovieCount();
-        Future<Integer> future = ((ExecutorService) mExecutors.getDiskExecutor()).submit(callable);
-        Integer favoriteMovieCount = 0;
-
-        try {
-            favoriteMovieCount = future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return favoriteMovieCount > 0;
-
-    }
-
     private LiveData<List<Movie>> getOtherMovies(String sortCriteria) {
         mExecutors.getNetworkExecutor().execute(() -> {
             if (isDataFetchNeeded(sortCriteria)) {
