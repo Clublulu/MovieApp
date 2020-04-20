@@ -32,6 +32,6 @@ public class MainActivityViewModel extends ViewModel {
     public LiveData<List<Movie>> getMovies() {
         return Transformations.switchMap(
                 mSortCriteria,
-                sortCriteria -> mRepository.getLatestMovies(sortCriteria));
+                sortCriteria -> mRepository.getMovies(sortCriteria));
     }
 }

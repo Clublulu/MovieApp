@@ -17,7 +17,7 @@ import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
  * Database class for the PopularMovies App.
  *
  */
-@Database(entities = {Movie.class}, version = 1, exportSchema = false)
+@Database(entities = {Movie.class}, version = 2, exportSchema = false)
 public abstract class MoviesDatabase extends RoomDatabase {
 
     private static MoviesDatabase sInstance;
@@ -32,6 +32,7 @@ public abstract class MoviesDatabase extends RoomDatabase {
             synchronized (MoviesDatabase.class) {
                 sInstance = Room.databaseBuilder(
                         context, MoviesDatabase.class, DB_NAME)
+                        .fallbackToDestructiveMigration()
                         .build();
                 Log.d(LOG_TAG, "Database instance created.");
             }

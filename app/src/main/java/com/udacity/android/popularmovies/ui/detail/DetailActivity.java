@@ -1,18 +1,26 @@
 package com.udacity.android.popularmovies.ui.detail;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.databinding.ActivityDetailBinding;
+import com.udacity.android.popularmovies.model.Movie;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
 public class DetailActivity extends AppCompatActivity {
 
     public static final String DETAIL_ACTIVITY_INTENT_EXTRA = "DETAIL_ACTIVITY_INTENT_EXTRA";
+
+    private DetailActivityViewModel mViewModel;
+    private int mMovieId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +29,19 @@ public class DetailActivity extends AppCompatActivity {
 
         ActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         binding.setLifecycleOwner(this);
-        int movieId = getIntent().getIntExtra(DETAIL_ACTIVITY_INTENT_EXTRA, -1);
+        mMovieId = getIntent().getIntExtra(DETAIL_ACTIVITY_INTENT_EXTRA, -1);
 
         DetailActivityViewModelFactory factory = MovieInstanceProviderUtil
-                .provideDetailActivityViewModelFactory(getApplicationContext(), movieId);
-        DetailActivityViewModel viewModel = new ViewModelProvider(this, factory)
+                .provideDetailActivityViewModelFactory(getApplicationContext(), mMovieId);
+        mViewModel = new ViewModelProvider(this, factory)
                 .get(DetailActivityViewModel.class);
-        viewModel.getMovie().observe(this, movie -> {
+        mViewModel.getMovie().observe(this, movie -> {
             binding.setMovie(movie);
         });
+    }
+
+    public void updateFavorite(View view) {
+        boolean isFavorite = ((ToggleButton) view).isChecked();
+        mViewModel.updateFavorite(mMovieId, isFavorite);
     }
 }

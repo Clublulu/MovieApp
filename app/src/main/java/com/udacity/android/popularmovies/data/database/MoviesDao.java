@@ -64,4 +64,30 @@ public interface MoviesDao {
     void deleteAllMovies();
 
 
+    /**
+     * Update to change favorite status of movie.
+     *
+     * @param isFavorite
+     */
+    @Query("UPDATE movie_table SET is_favorite = :isFavorite WHERE movie_id = :movieId")
+    void updateFavoriteMovie(int movieId, boolean isFavorite);
+
+
+    /**
+     * Retrieve the count of favorite movies.
+     * This query is used to determine whether to display the "Favorites" sort criteria in the Spinner
+     *
+     * @return number of movies that were marked as favorite
+     */
+    @Query("SELECT COUNT(movie_id) FROM movie_table WHERE is_favorite = 1")
+    int getFavoriteMovieCount();
+
+    /**
+     * Returns a list of favorite movies.
+     *
+     * @return list of favorite movies
+     */
+    @Query("SELECT * FROM movie_table WHERE is_favorite = 1")
+    LiveData<List<Movie>> getFavoriteMovies();
+
 }

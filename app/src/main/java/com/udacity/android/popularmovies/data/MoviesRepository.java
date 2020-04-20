@@ -9,6 +9,10 @@ import com.udacity.android.popularmovies.data.network.MoviesDataSource;
 import com.udacity.android.popularmovies.model.Movie;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 
 /**
@@ -57,7 +61,62 @@ public class MoviesRepository {
         return sInstance;
     }
 
-    public LiveData<List<Movie>> getLatestMovies(String sortCriteria) {
+    /**
+     * Gets the list of movies based on sort criteria.
+     *
+     * @param sortCriteria
+     * @return list of movies
+     */
+    public LiveData<List<Movie>> getMovies(String sortCriteria) {
+        if (isSortCriteriaFavorites(sortCriteria)) {
+            return getFavoriteMovies();
+        } else {
+            return getOtherMovies(sortCriteria);
+        }
+    }
+
+    /**
+     * Get a specific movie via movieId.
+     *
+     * @param movieId
+     * @return a movie
+     */
+    public LiveData<Movie> getMovieById(int movieId) {
+        return mMoviesDao.getMovieById(movieId);
+    }
+
+    /**
+     * Update the a Movie with the favorite preference.
+     *
+     * @param movieId
+     * @param isFavorite
+     */
+    public void updateFavorite(int movieId, boolean isFavorite) {
+        mExecutors.getDiskExecutor().execute(() -> mMoviesDao.updateFavoriteMovie(movieId, isFavorite));
+    }
+
+    /**
+     * Checks to see whether the users marked any movies favorite.
+     * This method is used to determine whether to add a "Favorites" item to the Spinner
+     *
+     * @return favorite movie count
+     */
+    public boolean hasFavoriteMovies() {
+        Callable<Integer> callable = () -> mMoviesDao.getFavoriteMovieCount();
+        Future<Integer> future = ((ExecutorService) mExecutors.getDiskExecutor()).submit(callable);
+        Integer favoriteMovieCount = 0;
+
+        try {
+            favoriteMovieCount = future.get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return favoriteMovieCount > 0;
+
+    }
+
+    private LiveData<List<Movie>> getOtherMovies(String sortCriteria) {
         mExecutors.getNetworkExecutor().execute(() -> {
             if (isDataFetchNeeded(sortCriteria)) {
                 mDataSource.retrieveMovies(sortCriteria);
@@ -65,13 +124,26 @@ public class MoviesRepository {
         });
         return mMoviesDao.getMovies(sortCriteria);
     }
-
-    public LiveData<Movie> getMovieById(int movieId) {
-        return mMoviesDao.getMovieById(movieId);
+    
+    
+    private LiveData<List<Movie>> getFavoriteMovies() {
+        Callable<LiveData<List<Movie>>> callable = () -> mMoviesDao.getFavoriteMovies();
+        Future<LiveData<List<Movie>>> future = ((ExecutorService)
+                mExecutors.getDiskExecutor()).submit(callable);
+        LiveData<List<Movie>> movies = null;
+        try {
+            movies =  future.get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return movies;
     }
-
 
     private boolean isDataFetchNeeded(String sortCriteria) {
         return mMoviesDao.getMovieCount(sortCriteria) <= 0;
+    }
+    
+    private boolean isSortCriteriaFavorites(String sortCriteria) {
+        return "favorites".equals(sortCriteria);
     }
 }

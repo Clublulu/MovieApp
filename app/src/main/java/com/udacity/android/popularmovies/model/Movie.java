@@ -36,7 +36,10 @@ public class Movie {
     @ColumnInfo(name = "sort_criteria")
     public String sortCriteria;
 
-    public Movie(int movieId, String image, String title, String averageRating, String description, String releaseDate, String sortCriteria) {
+    @ColumnInfo(name = "is_favorite")
+    public boolean isFavorite;
+
+    public Movie(int movieId, String image, String title, String averageRating, String description, String releaseDate, String sortCriteria, boolean isFavorite) {
         this.movieId = movieId;
         this.image = image;
         this.title = title;
@@ -44,6 +47,7 @@ public class Movie {
         this.description = description;
         this.releaseDate = releaseDate;
         this.sortCriteria = sortCriteria;
+        this.isFavorite = isFavorite;
     }
 
     @Ignore

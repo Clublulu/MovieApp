@@ -24,4 +24,7 @@ public class DetailActivityViewModel extends ViewModel {
         return mMovie;
     }
 
+    public void updateFavorite(int movieId, boolean isFavorite) {
+        mRepository.updateFavorite(movieId, isFavorite);
+    }
 }

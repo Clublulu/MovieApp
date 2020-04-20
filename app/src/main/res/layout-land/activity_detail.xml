@@ -88,6 +88,21 @@
                 app:layout_constraintStart_toEndOf="@+id/detail_movie_image"
                 app:layout_constraintTop_toBottomOf="@+id/release_date_tv"
                 tools:text="Frodo continues his journey through the mountainous terrain to destroy the ring once and for all." />
+
+            <ToggleButton
+                android:id="@+id/button_favorite"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:background="@drawable/favorite_button"
+                android:checked="@{movie.isFavorite}"
+                android:onClick="updateFavorite"
+                android:text=""
+                android:textOff=""
+                android:textOn=""
+                app:layout_constraintBottom_toTopOf="@+id/average_rating_tv"
+                app:layout_constraintStart_toEndOf="@+id/average_rating_tv"
+                app:layout_constraintTop_toBottomOf="@+id/average_rating_tv"
+                app:layout_constraintVertical_bias="0.555" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

@@ -1,9 +1,7 @@
 package com.udacity.android.popularmovies.ui.main;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements
     private int mPosition = RecyclerView.NO_POSITION;
     private MainActivityViewModel mViewModel;
 
-
     private ProgressBar mLoadingIndicator_pb;
     private TextView mErrorMessage_tv;
 
@@ -45,9 +42,9 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mSortCriteriaMap = createSortCriteriaMap();
         mLoadingIndicator_pb = findViewById(R.id.pb_loading_indicator);
         mErrorMessage_tv = findViewById(R.id.tv_error_message_display);
+        createSortCriteriaMap();
         setupRecyclerView();
 
         MainActivityViewModelFactory factory = MovieInstanceProviderUtil
@@ -70,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem spinnerItem = menu.findItem(R.id.menu_spinner);
         Spinner spinner  = (Spinner) spinnerItem.getActionView();
-
         ArrayAdapter<CharSequence> spinnerAdapter =
                 ArrayAdapter.createFromResource(getApplicationContext(),
                         R.array.movie_preferences,
@@ -93,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements
         mLoadingIndicator_pb.setVisibility(View.VISIBLE);
     }
 
+
     @Override
     public void onClickItem(Movie movie) {
         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
@@ -103,10 +100,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = (String) parent.getItemAtPosition(position);
-        SharedPreferences.Editor sharedPrefEditor = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext()).edit();
         String sortCriteriaValue = mSortCriteriaMap.get(selectedItem);
-        sharedPrefEditor.putString(getString(R.string.sort_criteria_key), sortCriteriaValue);
         mViewModel.getLatestMovies(sortCriteriaValue);
     }
 
@@ -127,20 +121,10 @@ public class MainActivity extends AppCompatActivity implements
         mMovies_rv.setAdapter(mMoviesAdapter);
     }
 
-    private String getPrefSortCriteria() {
-        SharedPreferences sharedPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-        String sortCriteriaKey = getString(R.string.sort_criteria_key);
-        String defaultPopular = getString(R.string.popular);
-        return sharedPreferences.getString(sortCriteriaKey, defaultPopular);
+    private void createSortCriteriaMap() {
+        mSortCriteriaMap  = new HashMap<>();
+        mSortCriteriaMap.put(getString(R.string.popular_label), getString(R.string.popular));
+        mSortCriteriaMap.put(getString(R.string.top_rated_label), getString(R.string.top_rated));
+        mSortCriteriaMap.put(getString(R.string.favorites_label), getString(R.string.favorites));
     }
-
-    private Map<String, String> createSortCriteriaMap() {
-        Map<String, String> map = new HashMap<>();
-        map.put(getString(R.string.popular_label), getString(R.string.popular));
-        map.put(getString(R.string.top_rated_label), getString(R.string.top_rated));
-
-        return map;
-    }
-
 }

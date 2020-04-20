@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="left"
-    android:textColor="#FFFFFF"
+    android:textColor="@android:color/white"
     android:padding="5dip">
 
 </TextView>
