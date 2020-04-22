@@ -12,9 +12,13 @@ import retrofit2.http.Query;
 public interface MoviesNetworkAPI {
 
     @GET("{sortCriteria}")
-    Call<List<Movie>> getSortedMovies(
+    Call<List<Movie>> getMovies(
             @Path("sortCriteria") String sortCriteria,
             @Query("api_key") String apiKey);
+
+
+
+
 
 
 }

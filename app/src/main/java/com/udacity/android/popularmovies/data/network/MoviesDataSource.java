@@ -76,7 +76,7 @@ public class MoviesDataSource {
 
     public void retrieveMovies(String sortCriteria) {
         MoviesNetworkAPI service = mRetrofit.create(MoviesNetworkAPI.class);
-        Call<List<Movie>> call = service.getSortedMovies(sortCriteria, MOVIE_DB_API_KEY);
+        Call<List<Movie>> call = service.getMovies(sortCriteria, MOVIE_DB_API_KEY);
 
         try {
             Response<List<Movie>> response = call.execute();

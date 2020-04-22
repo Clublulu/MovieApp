@@ -10,7 +10,7 @@ import androidx.work.WorkerParameters;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
 /**
- * This worker fetches the latest movie data available.
+ * This worker runs on a 24 hour schedule to fetch the latest movie data available.
  *
  */
 public class MovieSyncWorker extends Worker {
