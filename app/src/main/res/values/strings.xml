@@ -21,6 +21,10 @@
     <string name="average_rating">vote_average</string>
     <string name="release_date">release_date</string>
     <string name="description">overview</string>
+    <string name="trailer_key">key</string>
+    <string name="trailer_name">name</string>
+    <string name="review_author">author</string>
+    <string name="review_content">content</string>
 
 
     <!-- Movie preference options list -->

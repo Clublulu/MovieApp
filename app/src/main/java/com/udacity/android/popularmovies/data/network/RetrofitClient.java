@@ -1,14 +1,19 @@
 package com.udacity.android.popularmovies.data.network;
 
+import android.content.Context;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.udacity.android.popularmovies.model.Movie;
+import com.udacity.android.popularmovies.model.Review;
+import com.udacity.android.popularmovies.model.Trailer;
 
-import java.lang.reflect.Type;
+import java.util.List;
 
 import retrofit2.Converter;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -22,13 +27,14 @@ public class RetrofitClient {
     private static Retrofit mRetrofit;
     private static final Object LOCK = new Object();
 
-    public static Retrofit getInstance(Type type, Object typeAdapter) {
+    public static Retrofit getInstance(Context context) {
         Log.d(LOG_TAG, "Getting Retrofit instance.");
         if (mRetrofit == null) {
             synchronized (LOCK) {
                 mRetrofit = new Retrofit.Builder()
                         .baseUrl(MoviesDataSource.MOVIE_DB_BASE_URL)
-                        .addConverterFactory(createGsonConverter(type, typeAdapter))
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .addConverterFactory(createGsonConverter(context))
                         .build();
                 Log.d(LOG_TAG, "Created Retrofit instance.");
             }
@@ -37,12 +43,20 @@ public class RetrofitClient {
         return mRetrofit;
     }
 
-    private static Converter.Factory createGsonConverter(Type type, Object typeAdapter) {
+    private static Converter.Factory createGsonConverter(Context context) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(type, typeAdapter);
-        Gson gson = gsonBuilder.create();
 
-        return GsonConverterFactory.create(gson);
+        gsonBuilder.registerTypeAdapter(
+                new TypeToken<List<Movie>>() {}.getType(),
+                new MovieDetailsDeserializer(context));
+        gsonBuilder.registerTypeAdapter(
+                new TypeToken<List<Trailer>>() {}.getType(),
+                new MovieTrailerDeserializer(context));
+        gsonBuilder.registerTypeAdapter(
+                new TypeToken<List<Review>>() {}.getType(),
+                new MovieReviewsDeserializer(context));
+
+        return GsonConverterFactory.create(gsonBuilder.create());
     }
 
 }

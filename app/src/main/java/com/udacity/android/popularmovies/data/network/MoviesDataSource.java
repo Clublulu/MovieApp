@@ -10,16 +10,18 @@ import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import com.google.gson.reflect.TypeToken;
 import com.udacity.android.popularmovies.model.Movie;
-import com.udacity.android.popularmovies.utilities.MovieListDeserializer;
+import com.udacity.android.popularmovies.model.Review;
+import com.udacity.android.popularmovies.model.Trailer;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import retrofit2.Call;
-import retrofit2.Response;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Function3;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 /**
@@ -31,9 +33,11 @@ public class MoviesDataSource {
     private static final String LOG_TAG = MoviesDataSource.class.getSimpleName();
 
     // API key used to query moviedb. Please replace with your own.
-    private static final String MOVIE_DB_API_KEY = "1c38f58dda138334ea280fc62955d062";
+    private static final String MOVIE_DB_API_KEY = "YOUR_API_KEY_HERE";
     public static final String MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3/movie/";
     private static final String MOVIE_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
+    private static final String YOUTUBE_BASE_URL = "https://www.youtube.com/";
+    private static final String YOUTUBE_WATCH_PARAMETER = "watch";
     private static final String IMAGE_SIZE = "w185";
 
     private static final String PERIODIC_MOVIES_SYNC_TAG = "movies_sync_tag";
@@ -45,9 +49,7 @@ public class MoviesDataSource {
 
     private MoviesDataSource(Context context) {
         mContext = context;
-        mRetrofit = RetrofitClient
-                .getInstance(new TypeToken<List<Movie>>() {}.getType(),
-                             new MovieListDeserializer(context));
+        mRetrofit = RetrofitClient.getInstance(context);
         mMovies = new MutableLiveData<>();
     }
 
@@ -76,27 +78,37 @@ public class MoviesDataSource {
 
     public void retrieveMovies(String sortCriteria) {
         MoviesNetworkAPI service = mRetrofit.create(MoviesNetworkAPI.class);
-        Call<List<Movie>> call = service.getMovies(sortCriteria, MOVIE_DB_API_KEY);
 
-        try {
-            Response<List<Movie>> response = call.execute();
-            if (response.isSuccessful()) {
-                for (Movie movie : response.body()) {
-                    movie.sortCriteria = sortCriteria;
-                }
-                mMovies.postValue(response.body());
-            }
-        } catch (IOException e) {
-            // TODO handle error
-            // best way to handle this error?
-            e.printStackTrace();
-        }
+        service.getMovies(sortCriteria, MOVIE_DB_API_KEY)
+        .flatMap((Function<List<Movie>, ObservableSource<Movie>>) moviesList -> Observable.fromIterable(moviesList))
+        .flatMap((Function<Movie, ObservableSource<Movie>>) movie ->
+                Observable.zip(Observable.just(movie),
+                service.getMovieTrailers(movie.movieId, MOVIE_DB_API_KEY),
+                service.getMovieReviews(movie.movieId, MOVIE_DB_API_KEY),
+                (Function3<Movie, List<Trailer>, List<Review>, Movie>) (selectedMovie, trailers, reviews) -> {
+                    selectedMovie.sortCriteria = sortCriteria;
+                    selectedMovie.trailers = trailers;
+                    selectedMovie.reviews = reviews;
+                            return selectedMovie; }))
+        .toList()
+        .subscribeOn(Schedulers.io())
+        .subscribe(movies -> mMovies.postValue(movies));
+
+
     }
 
     public static String buildImageURL(String relativePath) {
         return Uri.parse(MOVIE_IMAGE_BASE_URL).buildUpon()
                 .appendPath(IMAGE_SIZE)
                 .appendEncodedPath(relativePath)
+                .build()
+                .toString();
+    }
+
+    public static String buildYoutubeURL(String trailerKey) {
+        return Uri.parse(YOUTUBE_BASE_URL).buildUpon()
+                .appendPath(YOUTUBE_WATCH_PARAMETER)
+                .appendQueryParameter("v", trailerKey)
                 .build()
                 .toString();
     }

@@ -1,4 +1,4 @@
-package com.udacity.android.popularmovies.utilities;
+package com.udacity.android.popularmovies.data.network;
 
 import android.content.Context;
 
@@ -16,11 +16,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class MovieListDeserializer implements JsonDeserializer<List<Movie>> {
+public final class MovieDetailsDeserializer implements JsonDeserializer<List<Movie>> {
 
     private static Context mContext;
 
-    public MovieListDeserializer(Context context) {
+    public MovieDetailsDeserializer(Context context) {
         mContext = context;
     }
 

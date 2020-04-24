@@ -8,8 +8,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.squareup.picasso.Picasso;
+import com.udacity.android.popularmovies.data.database.ReviewsTypeConverter;
+import com.udacity.android.popularmovies.data.database.TrailersTypeConverter;
+
+import java.util.List;
 
 @Entity(tableName = "movie_table")
 public class Movie {
@@ -39,7 +44,17 @@ public class Movie {
     @ColumnInfo(name = "is_favorite")
     public boolean isFavorite;
 
-    public Movie(int movieId, String image, String title, String averageRating, String description, String releaseDate, String sortCriteria, boolean isFavorite) {
+    @ColumnInfo(name = "trailers")
+    @TypeConverters(TrailersTypeConverter.class)
+    public List<Trailer> trailers;
+
+    @ColumnInfo(name = "reviews")
+    @TypeConverters(ReviewsTypeConverter.class)
+    public List<Review> reviews;
+
+    public Movie(int movieId, String image, String title, String averageRating,
+                 String description, String releaseDate, String sortCriteria,
+                 boolean isFavorite, List<Trailer> trailers, List<Review> reviews) {
         this.movieId = movieId;
         this.image = image;
         this.title = title;
@@ -48,6 +63,8 @@ public class Movie {
         this.releaseDate = releaseDate;
         this.sortCriteria = sortCriteria;
         this.isFavorite = isFavorite;
+        this.trailers = trailers;
+        this.reviews = reviews;
     }
 
     @Ignore
@@ -60,10 +77,8 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-
     @BindingAdapter("imageUrl")
     public static void loadImage(ImageView view, String imageUrl) {
         Picasso.get().load(imageUrl).into(view);
     }
-
 }

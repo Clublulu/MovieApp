@@ -6,14 +6,18 @@ import android.util.Log;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.udacity.android.popularmovies.model.Movie;
+import com.udacity.android.popularmovies.model.Review;
+import com.udacity.android.popularmovies.model.Trailer;
 
 /**
  * Database class for the PopularMovies App.
  *
  */
-@Database(entities = {Movie.class}, version = 2, exportSchema = false)
+@Database(entities = {Movie.class, Trailer.class, Review.class}, version = 3, exportSchema = false)
+@TypeConverters({TrailersTypeConverter.class, ReviewsTypeConverter.class})
 public abstract class MoviesDatabase extends RoomDatabase {
 
     private static MoviesDatabase sInstance;
@@ -36,8 +40,6 @@ public abstract class MoviesDatabase extends RoomDatabase {
 
         return sInstance;
     }
-
-
 
     public abstract MoviesDao moviesDao();
 }
