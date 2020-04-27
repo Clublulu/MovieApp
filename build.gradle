@@ -32,4 +32,5 @@ ext {
     lifecycle_version = "2.2.0"
     room_version = "2.2.5"
     work_version = "2.3.4"
+    rxjava_version = "3.0.0"
 }
