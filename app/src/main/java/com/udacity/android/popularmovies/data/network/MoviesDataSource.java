@@ -63,7 +63,6 @@ public class MoviesDataSource {
         return sInstance;
     }
 
-
     public void scheduleRecurringDataFetchTask() {
         PeriodicWorkRequest workRequest =
                 new PeriodicWorkRequest.Builder(
@@ -93,8 +92,6 @@ public class MoviesDataSource {
         .toList()
         .subscribeOn(Schedulers.io())
         .subscribe(movies -> mMovies.postValue(movies));
-
-
     }
 
     public static String buildImageURL(String relativePath) {

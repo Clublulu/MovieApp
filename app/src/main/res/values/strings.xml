@@ -11,6 +11,7 @@
     <string name="average_rating_ten_label">/ 10</string>
 
 
+    <string name="no_favorites">No favorite movies.</string>
 
 
     <!-- JSON Mapping Keys -->

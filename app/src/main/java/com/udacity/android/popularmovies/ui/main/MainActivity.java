@@ -36,15 +36,19 @@ public class MainActivity extends AppCompatActivity implements
 
     private ProgressBar mLoadingIndicator_pb;
     private TextView mErrorMessage_tv;
+    private TextView mNoFavorites_tv;
 
     private static Map<String, String> mSortCriteriaMap;
+    private String mSortCriteriaValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mLoadingIndicator_pb = findViewById(R.id.pb_loading_indicator);
+        mNoFavorites_tv = findViewById(R.id.no_favorites_added);
         mErrorMessage_tv = findViewById(R.id.tv_error_message_display);
+
         createSortCriteriaMap();
         setupRecyclerView();
 
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements
             if(movies != null && movies.size() != 0)
                 showMovieData();
             else
-                showLoading();
+                determineLoadScreen();
         });
     }
 
@@ -78,18 +82,6 @@ public class MainActivity extends AppCompatActivity implements
 
         return true;
     }
-    
-    private void showMovieData() {
-        mErrorMessage_tv.setVisibility(View.INVISIBLE);
-        mLoadingIndicator_pb.setVisibility(View.INVISIBLE);
-        mMovies_rv.setVisibility(View.VISIBLE);
-    }
-    
-    private void showLoading() {
-        mMovies_rv.setVisibility(View.INVISIBLE);
-        mLoadingIndicator_pb.setVisibility(View.VISIBLE);
-    }
-
 
     @Override
     public void onClickItem(Object movie) {
@@ -101,8 +93,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = (String) parent.getItemAtPosition(position);
-        String sortCriteriaValue = mSortCriteriaMap.get(selectedItem);
-        mViewModel.getLatestMovies(sortCriteriaValue);
+        mSortCriteriaValue = mSortCriteriaMap.get(selectedItem);
+        mViewModel.getLatestMovies(mSortCriteriaValue);
     }
 
     @Override
@@ -127,5 +119,34 @@ public class MainActivity extends AppCompatActivity implements
         mSortCriteriaMap.put(getString(R.string.popular_label), getString(R.string.popular));
         mSortCriteriaMap.put(getString(R.string.top_rated_label), getString(R.string.top_rated));
         mSortCriteriaMap.put(getString(R.string.favorites_label), getString(R.string.favorites));
+    }
+
+    private void showMovieData() {
+        mErrorMessage_tv.setVisibility(View.INVISIBLE);
+        mLoadingIndicator_pb.setVisibility(View.INVISIBLE);
+        mNoFavorites_tv.setVisibility(View.INVISIBLE);
+        mMovies_rv.setVisibility(View.VISIBLE);
+    }
+
+    private void showLoading() {
+        mMovies_rv.setVisibility(View.INVISIBLE);
+        mNoFavorites_tv.setVisibility(View.INVISIBLE);
+        mLoadingIndicator_pb.setVisibility(View.VISIBLE);
+    }
+
+    private void showNoFavoritesAdded() {
+        mLoadingIndicator_pb.setVisibility(View.INVISIBLE);
+        mMovies_rv.setVisibility(View.INVISIBLE);
+        mNoFavorites_tv.setVisibility(View.VISIBLE);
+    }
+
+    // determines whether to show a progress bar while waiting for Popular / Top Rated data to load
+    // OR, for Favorites, a message that no favorites have been added yet.
+    private void determineLoadScreen() {
+        if (mSortCriteriaValue.equals(getString(R.string.favorites))) {
+            showNoFavoritesAdded();
+        } else {
+            showLoading();
+        }
     }
 }
