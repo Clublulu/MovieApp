@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.model.Movie;
+import com.udacity.android.popularmovies.ui.MovieOnClickListener;
 import com.udacity.android.popularmovies.ui.detail.DetailActivity;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
@@ -25,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements
-        PopularMoviesAdapter.OnClickMovieListener,
+        MovieOnClickListener,
         AdapterView.OnItemSelectedListener {
 
     private RecyclerView mMovies_rv;
@@ -91,9 +92,9 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public void onClickItem(Movie movie) {
+    public void onClickItem(Object movie) {
         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-        intent.putExtra(DetailActivity.DETAIL_ACTIVITY_INTENT_EXTRA, movie.movieId);
+        intent.putExtra(DetailActivity.DETAIL_ACTIVITY_INTENT_EXTRA, ((Movie) movie).movieId);
         startActivity(intent);
     }
 

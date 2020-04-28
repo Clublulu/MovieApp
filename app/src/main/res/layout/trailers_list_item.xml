@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="movie"
-            type="com.udacity.android.popularmovies.model.Movie" />
+            name="trailer"
+            type="com.udacity.android.popularmovies.model.Trailer" />
     </data>
 
 
@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_media_play" />
@@ -29,6 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Movie Trailer Title"
+            android:text="@{trailer.title}"
+            android:layout_marginLeft="8dp"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.databinding.MoviesListItemBinding;
 import com.udacity.android.popularmovies.model.Movie;
+import com.udacity.android.popularmovies.ui.MovieOnClickListener;
 
 import java.util.List;
 
@@ -22,9 +23,9 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
 
     private List<Movie> mMovies;
 
-    private OnClickMovieListener movieListener;
+    private MovieOnClickListener movieListener;
 
-    public PopularMoviesAdapter(OnClickMovieListener movieListener) {
+    public PopularMoviesAdapter(MovieOnClickListener movieListener) {
         this.movieListener = movieListener;
     }
 
@@ -83,11 +84,5 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
             mMovies = newMovies;
             result.dispatchUpdatesTo(this);
         }
-
-
-    }
-
-    public interface OnClickMovieListener {
-        void onClickItem(Movie movie);
     }
 }
