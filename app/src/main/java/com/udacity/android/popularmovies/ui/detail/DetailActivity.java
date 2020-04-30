@@ -64,12 +64,12 @@ public class DetailActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.details:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId)).addToBackStack("details").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId)).addToBackStack(null).commit();
                 mNavigationView.setCheckedItem(R.id.details);
                 break;
 
             case R.id.trailers:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieListsFragment.getInstance(mMovieId)).addToBackStack("trailers").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieListsFragment.getInstance(mMovieId)).addToBackStack(null).commit();
                 mNavigationView.setCheckedItem(R.id.trailers);
                 break;
 
@@ -99,7 +99,7 @@ public class DetailActivity extends AppCompatActivity implements
     public void onBackPressed() {
         FragmentManager manager =  getSupportFragmentManager();
         if (manager.getBackStackEntryCount() > 0) {
-            manager.popBackStack();
+            manager.popBackStackImmediate();
         } else {
             super.onBackPressed();
         }
