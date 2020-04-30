@@ -45,7 +45,7 @@ public class MoviesRepository {
         });
 
         // schedule a unique recurring task that fetches data every 24 hr.
-        mDataSource.scheduleRecurringDataFetchTask();
+//        mDataSource.scheduleRecurringDataFetchTask();
     }
 
     public static MoviesRepository getInstance(MoviesDao moviesDao,

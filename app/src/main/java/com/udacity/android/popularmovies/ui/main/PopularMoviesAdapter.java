@@ -72,17 +72,17 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
 
     public void swapMovies(List<Movie> newMovies) {
         // notify data set changed only when movies in the adapter are initially empty
-        if (mMovies == null) {
+//        if (mMovies == null || mMovies.size() == 0) {
             mMovies = newMovies;
             notifyDataSetChanged();
-        }
+//        }
         // otherwise use DiffUtils' calculateDiff method to calculate changes between
         // old & new data, and update the resulting list accordingly
-        else {
-            DiffUtil.DiffResult result = DiffUtil
-                    .calculateDiff(new MoviesListDifferenceCallback(mMovies, newMovies));
-            mMovies = newMovies;
-            result.dispatchUpdatesTo(this);
-        }
+//        else {
+//            DiffUtil.DiffResult result = DiffUtil
+//                    .calculateDiff(new MoviesListDifferenceCallback(mMovies, newMovies));
+//            mMovies = newMovies;
+//            result.dispatchUpdatesTo(this);
+//        }
     }
 }

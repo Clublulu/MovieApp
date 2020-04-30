@@ -2,54 +2,55 @@ package com.udacity.android.popularmovies.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.model.Movie;
 import com.udacity.android.popularmovies.ui.MovieOnClickListener;
 import com.udacity.android.popularmovies.ui.detail.DetailActivity;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class MainActivity extends AppCompatActivity implements
         MovieOnClickListener,
-        AdapterView.OnItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener {
 
-    private RecyclerView mMovies_rv;
     private PopularMoviesAdapter mMoviesAdapter;
-    private int mPosition = RecyclerView.NO_POSITION;
     private MainActivityViewModel mViewModel;
 
+    private Toolbar mToolbar;
+    private DrawerLayout mDrawer;
+    private NavigationView mNavigationView;
+    private RecyclerView mMovies_rv;
     private ProgressBar mLoadingIndicator_pb;
     private TextView mErrorMessage_tv;
     private TextView mNoFavorites_tv;
-
-    private static Map<String, String> mSortCriteriaMap;
+    private int mPosition = RecyclerView.NO_POSITION;
     private String mSortCriteriaValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mToolbar = findViewById(R.id.toolbar_main);
         mLoadingIndicator_pb = findViewById(R.id.pb_loading_indicator);
         mNoFavorites_tv = findViewById(R.id.no_favorites_added);
         mErrorMessage_tv = findViewById(R.id.tv_error_message_display);
-
-        createSortCriteriaMap();
+        setSupportActionBar(mToolbar);
+        initActionBarDrawer(savedInstanceState);
         setupRecyclerView();
 
         MainActivityViewModelFactory factory = MovieInstanceProviderUtil
@@ -65,22 +66,11 @@ public class MainActivity extends AppCompatActivity implements
             else
                 determineLoadScreen();
         });
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem spinnerItem = menu.findItem(R.id.menu_spinner);
-        Spinner spinner  = (Spinner) spinnerItem.getActionView();
-        ArrayAdapter<CharSequence> spinnerAdapter =
-                ArrayAdapter.createFromResource(getApplicationContext(),
-                        R.array.movie_preferences,
-                        R.layout.spinner_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setOnItemSelectedListener(this);
-
-        return true;
+        // load initial screen with popular movies
+        mSortCriteriaValue = getString(R.string.popular);
+        mViewModel.getLatestMovies(getString(R.string.popular));
+        mNavigationView.setCheckedItem(R.id.popular);
     }
 
     @Override
@@ -91,14 +81,48 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String selectedItem = (String) parent.getItemAtPosition(position);
-        mSortCriteriaValue = mSortCriteriaMap.get(selectedItem);
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.popular:
+                mSortCriteriaValue = getString(R.string.popular);
+                mNavigationView.setCheckedItem(R.id.popular);
+                break;
+
+            case R.id.top_rated:
+                mSortCriteriaValue = getString(R.string.top_rated);
+                mNavigationView.setCheckedItem(R.id.top_rated);
+                break;
+
+            case R.id.favorites:
+                mSortCriteriaValue = getString(R.string.favorites);
+                mNavigationView.setCheckedItem(R.id.favorites);
+                break;
+        }
         mViewModel.getLatestMovies(mSortCriteriaValue);
+        mDrawer.closeDrawer(GravityCompat.START);
+        return false;
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) { }
+    public void onBackPressed() {
+        // Close the drawer if it's still open when the back button is pressed, otherwise default back press
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void initActionBarDrawer(Bundle savedInstanceState) {
+        mDrawer = findViewById(R.id.drawer_layout_main);
+        ActionBarDrawerToggle mToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open
+                , R.string.navigation_drawer_close);
+        mDrawer.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+        mNavigationView = findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
+    }
 
     private void setupRecyclerView() {
         mMovies_rv = findViewById(R.id.movies_rv);
@@ -112,13 +136,6 @@ public class MainActivity extends AppCompatActivity implements
 
         mMoviesAdapter = new PopularMoviesAdapter(this);
         mMovies_rv.setAdapter(mMoviesAdapter);
-    }
-
-    private void createSortCriteriaMap() {
-        mSortCriteriaMap  = new HashMap<>();
-        mSortCriteriaMap.put(getString(R.string.popular_label), getString(R.string.popular));
-        mSortCriteriaMap.put(getString(R.string.top_rated_label), getString(R.string.top_rated));
-        mSortCriteriaMap.put(getString(R.string.favorites_label), getString(R.string.favorites));
     }
 
     private void showMovieData() {

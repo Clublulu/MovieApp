@@ -43,18 +43,18 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
-
-
-    // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    // Retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    // RxJava Android
+    implementation "io.reactivex.rxjava3:rxandroid:$rxjava_version"
+    // RxJava
+    implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
+    // Retrofit2 - RxJava Adapter
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
     // Gson Converter
-    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
-
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.8.1"
-
-
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
     // RecyclerView
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     // Constraint Layout
@@ -63,15 +63,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
-
-    implementation "io.reactivex.rxjava3:rxandroid:$rxjava_version"
-//    // Because RxAndroid releases are few and far between, it is recommended you also
-//    // explicitly depend on RxJava's latest version for bug fixes and new features.
-//    // (see https://github.com/ReactiveX/RxJava/releases for latest 3.x.x version)
-    implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
-
-
-
+    // Material Design Components
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
     // Annotation processors
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"

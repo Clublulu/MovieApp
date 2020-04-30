@@ -33,7 +33,7 @@ public class MoviesDataSource {
     private static final String LOG_TAG = MoviesDataSource.class.getSimpleName();
 
     // API key used to query moviedb. Please replace with your own.
-    private static final String MOVIE_DB_API_KEY = "YOUR_API_KEY_HERE";
+    private static final String MOVIE_DB_API_KEY = "1c38f58dda138334ea280fc62955d062";
     public static final String MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3/movie/";
     private static final String MOVIE_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
     private static final String YOUTUBE_BASE_URL = "https://www.youtube.com/";
@@ -63,17 +63,17 @@ public class MoviesDataSource {
         return sInstance;
     }
 
-    public void scheduleRecurringDataFetchTask() {
-        PeriodicWorkRequest workRequest =
-                new PeriodicWorkRequest.Builder(
-                        MovieSyncWorker.class,
-                        24,
-                        TimeUnit.HOURS).build();
-        WorkManager.getInstance(mContext).enqueueUniquePeriodicWork(
-                        PERIODIC_MOVIES_SYNC_TAG,
-                        ExistingPeriodicWorkPolicy.KEEP,
-                        workRequest);
-    }
+//    public void scheduleRecurringDataFetchTask() {
+//        PeriodicWorkRequest workRequest =
+//                new PeriodicWorkRequest.Builder(
+//                        MovieSyncWorker.class,
+//                        24,
+//                        TimeUnit.HOURS).build();
+//        WorkManager.getInstance(mContext).enqueueUniquePeriodicWork(
+//                        PERIODIC_MOVIES_SYNC_TAG,
+//                        ExistingPeriodicWorkPolicy.KEEP,
+//                        workRequest);
+//    }
 
     public void retrieveMovies(String sortCriteria) {
         MoviesNetworkAPI service = mRetrofit.create(MoviesNetworkAPI.class);
@@ -82,8 +82,8 @@ public class MoviesDataSource {
         .flatMap((Function<List<Movie>, ObservableSource<Movie>>) moviesList -> Observable.fromIterable(moviesList))
         .flatMap((Function<Movie, ObservableSource<Movie>>) movie ->
                 Observable.zip(Observable.just(movie),
-                service.getMovieTrailers(movie.movieId, MOVIE_DB_API_KEY),
-                service.getMovieReviews(movie.movieId, MOVIE_DB_API_KEY),
+                service.getMovieTrailers(movie.movieId, MOVIE_DB_API_KEY).onExceptionResumeNext(Observable.empty()),
+                service.getMovieReviews(movie.movieId, MOVIE_DB_API_KEY).onExceptionResumeNext(Observable.empty()),
                 (Function3<Movie, List<Trailer>, List<Review>, Movie>) (selectedMovie, trailers, reviews) -> {
                     selectedMovie.sortCriteria = sortCriteria;
                     selectedMovie.trailers = trailers;

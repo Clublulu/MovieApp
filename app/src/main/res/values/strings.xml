@@ -13,6 +13,11 @@
 
     <string name="no_favorites">No favorite movies.</string>
 
+    <!-- Home Navigation Items -->
+
+
+
+
 
     <!-- JSON Mapping Keys -->
     <string name="results">results</string>
@@ -43,6 +48,14 @@
     <string name="favorites_label">Favorites</string>
     <string name="favorites">favorites</string>
     <string name="sort_criteria_key">sort_criteria</string>
+    <string name="details_label">Details</string>
+    <string name="trailers_label">Trailers</string>
+    <string name="reviews_label">Reviews</string>
+
+
+
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
 
 
 </resources>
