@@ -6,7 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "movie_trailer")
-public class Trailer {
+public class Trailer implements MovieListable {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -28,4 +28,5 @@ public class Trailer {
         this.url = url;
         this.title = title;
     }
+
 }

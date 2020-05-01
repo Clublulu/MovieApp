@@ -12,7 +12,7 @@ import com.udacity.android.popularmovies.ui.main.MainActivityViewModelFactory;
 
 /**
  * Utility class that provides Model View instances for both the main and detail activities,
- * in addition to providing an instance of the Movies Data Source when triggered from running a service.
+ * in addition to providing an instance of the Movies Data Source when triggered from running a service, or a recurring request triggered by WorkManager.
  *
  */
 public class MovieInstanceProviderUtil {

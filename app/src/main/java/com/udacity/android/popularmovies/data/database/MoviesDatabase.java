@@ -16,7 +16,7 @@ import com.udacity.android.popularmovies.model.Trailer;
  * Database class for the PopularMovies App.
  *
  */
-@Database(entities = {Movie.class, Trailer.class, Review.class}, version = 3, exportSchema = false)
+@Database(entities = {Movie.class, Trailer.class, Review.class}, version = 4, exportSchema = false)
 @TypeConverters({TrailersTypeConverter.class, ReviewsTypeConverter.class})
 public abstract class MoviesDatabase extends RoomDatabase {
 

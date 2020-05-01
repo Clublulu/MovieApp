@@ -6,20 +6,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.databinding.TrailersListItemBinding;
+import com.udacity.android.popularmovies.model.MovieListable;
 import com.udacity.android.popularmovies.model.Trailer;
 import com.udacity.android.popularmovies.ui.MovieOnClickListener;
 
-import java.util.List;
-
-public class MovieTrailersAdapter extends RecyclerView.Adapter<MovieTrailersAdapter.MovieTrailersViewHolder> {
+public class MovieTrailersAdapter extends BaseMovieListsAdapter<Trailer> {
 
     private MovieOnClickListener mClickListener;
 
-    private List<Trailer> mTrailers;
 
     public MovieTrailersAdapter(MovieOnClickListener clickListener) {
         mClickListener = clickListener;
@@ -27,33 +24,23 @@ public class MovieTrailersAdapter extends RecyclerView.Adapter<MovieTrailersAdap
 
     @NonNull
     @Override
-    public MovieTrailersViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public BaseMovieListsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        TrailersListItemBinding binding = DataBindingUtil.inflate(inflater, R.layout.trailers_list_item, viewGroup, false);
-
-        return new MovieTrailersViewHolder(binding);
+        return new MovieTrailersViewHolder(
+                DataBindingUtil.inflate(
+                        inflater,
+                        R.layout.trailers_list_item,
+                        viewGroup,
+                        false));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MovieTrailersViewHolder holder, int position) {
-        holder.bind(mTrailers);
-    }
 
-    @Override
-    public int getItemCount() {
-        return mTrailers == null ? 0 : mTrailers.size();
-    }
-
-    public void swapTrailers(List<Trailer> newTrailers) {
-        if (mTrailers == null) {
-            mTrailers = newTrailers;
-            notifyDataSetChanged();
-        }
-    }
-
-    class MovieTrailersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MovieTrailersViewHolder extends BaseMovieListsAdapter.BaseMovieListsViewHolder implements View.OnClickListener {
 
         private TrailersListItemBinding mBinding;
+
+        //            mBinding.setTrailer(trailers.get(getAdapterPosition()));
+//            mBinding.executePendingBindings();
 
         public MovieTrailersViewHolder(TrailersListItemBinding binding) {
             super(binding.getRoot());
@@ -63,12 +50,16 @@ public class MovieTrailersAdapter extends RecyclerView.Adapter<MovieTrailersAdap
 
         @Override
         public void onClick(View v) {
-            mClickListener.onClickItem(mTrailers.get(getAdapterPosition()));
+            mClickListener.onClickItem(getList().get(getAdapterPosition()));
         }
 
-        void bind(List<Trailer> trailers) {
-            mBinding.setTrailer(trailers.get(getAdapterPosition()));
+
+        @Override
+        void bind(MovieListable data) {
+            mBinding.setTrailer((Trailer) data);
             mBinding.executePendingBindings();
         }
     }
+
+
 }

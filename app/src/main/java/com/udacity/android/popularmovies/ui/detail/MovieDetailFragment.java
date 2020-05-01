@@ -15,6 +15,10 @@ import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.databinding.FragmentMovieDetailBinding;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
+/**
+ * Fragment displaying the detailed information about a Movie.
+ *
+ */
 public class MovieDetailFragment extends Fragment {
 
     private static final String LOG_TAG = MovieDetailFragment.class.getSimpleName();

@@ -58,4 +58,10 @@
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
 
 
+
+    <!-- Test Strings -->
+    <string name="tools_review_author">Author</string>
+    <string name="tools_review_description">A review an author has left about the movie. May it be good or bad, Im just writing to make this text longer. Bla</string>
+
+
 </resources>

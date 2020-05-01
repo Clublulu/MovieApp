@@ -6,7 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "movie_reviews")
-public class Review {
+public class Review implements MovieListable {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -29,4 +29,7 @@ public class Review {
         this.author = author;
         this.description = description;
     }
+
+
+
 }
