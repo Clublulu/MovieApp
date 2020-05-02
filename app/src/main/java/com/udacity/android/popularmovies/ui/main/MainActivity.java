@@ -21,6 +21,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.model.Movie;
 import com.udacity.android.popularmovies.ui.MovieOnClickListener;
+import com.udacity.android.popularmovies.ui.adapter.BaseMovieListTypeAdapter;
+import com.udacity.android.popularmovies.ui.adapter.MovieListTypeAdapterFactory;
 import com.udacity.android.popularmovies.ui.detail.DetailActivity;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
@@ -28,13 +30,13 @@ public class MainActivity extends AppCompatActivity implements
         MovieOnClickListener,
         NavigationView.OnNavigationItemSelectedListener {
 
-    private PopularMoviesAdapter mMoviesAdapter;
     private MainActivityViewModel mViewModel;
 
+    private RecyclerView mRecyclerView;
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
-    private RecyclerView mMovies_rv;
+
     private ProgressBar mLoadingIndicator_pb;
     private TextView mErrorMessage_tv;
     private TextView mNoFavorites_tv;
@@ -51,16 +53,18 @@ public class MainActivity extends AppCompatActivity implements
         mErrorMessage_tv = findViewById(R.id.tv_error_message_display);
         setSupportActionBar(mToolbar);
         initActionBarDrawer(savedInstanceState);
-        setupRecyclerView();
+
+        BaseMovieListTypeAdapter adapter = MovieListTypeAdapterFactory.create(R.id.movies, this);
+        buildRecyclerView(adapter);
 
         MainActivityViewModelFactory factory = MovieInstanceProviderUtil
                 .provideMainActivityViewModelFactory(getApplicationContext());
         mViewModel = new ViewModelProvider(this, factory).get(MainActivityViewModel.class);
         mViewModel.getMovies().observe(this, movies -> {
-            mMoviesAdapter.swapMovies(movies);
+            adapter.swapData(movies);
             if (mPosition == RecyclerView.NO_POSITION)
                 mPosition = 0;
-            mMovies_rv.smoothScrollToPosition(mPosition);
+            mRecyclerView.smoothScrollToPosition(mPosition);
             if(movies != null && movies.size() != 0)
                 showMovieData();
             else
@@ -124,36 +128,34 @@ public class MainActivity extends AppCompatActivity implements
         mNavigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void setupRecyclerView() {
-        mMovies_rv = findViewById(R.id.movies_rv);
+    private void buildRecyclerView(RecyclerView.Adapter adapter) {
+        mRecyclerView = findViewById(R.id.movies);
         GridLayoutManager manager = new GridLayoutManager(
                 this,
                 2,
                 RecyclerView.VERTICAL,
                 false);
-        mMovies_rv.setLayoutManager(manager);
-        mMovies_rv.setHasFixedSize(true);
-
-        mMoviesAdapter = new PopularMoviesAdapter(this);
-        mMovies_rv.setAdapter(mMoviesAdapter);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(adapter);
     }
 
     private void showMovieData() {
         mErrorMessage_tv.setVisibility(View.INVISIBLE);
         mLoadingIndicator_pb.setVisibility(View.INVISIBLE);
         mNoFavorites_tv.setVisibility(View.INVISIBLE);
-        mMovies_rv.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
 
     private void showLoading() {
-        mMovies_rv.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
         mNoFavorites_tv.setVisibility(View.INVISIBLE);
         mLoadingIndicator_pb.setVisibility(View.VISIBLE);
     }
 
     private void showNoFavoritesAdded() {
         mLoadingIndicator_pb.setVisibility(View.INVISIBLE);
-        mMovies_rv.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
         mNoFavorites_tv.setVisibility(View.VISIBLE);
     }
 

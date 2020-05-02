@@ -1,4 +1,4 @@
-package com.udacity.android.popularmovies.ui.detail;
+package com.udacity.android.popularmovies.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +9,17 @@ import androidx.databinding.DataBindingUtil;
 
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.databinding.TrailersListItemBinding;
-import com.udacity.android.popularmovies.model.MovieListable;
+import com.udacity.android.popularmovies.model.MovieUmbrella;
 import com.udacity.android.popularmovies.model.Trailer;
 import com.udacity.android.popularmovies.ui.MovieOnClickListener;
 
-public class MovieTrailersAdapter extends BaseMovieListsAdapter<Trailer> {
+/**
+ * RecyclerView Adapter for Trailers.
+ *
+ */
+public class MovieTrailersAdapter extends BaseMovieListTypeAdapter<Trailer> {
 
     private MovieOnClickListener mClickListener;
-
 
     public MovieTrailersAdapter(MovieOnClickListener clickListener) {
         mClickListener = clickListener;
@@ -24,7 +27,7 @@ public class MovieTrailersAdapter extends BaseMovieListsAdapter<Trailer> {
 
     @NonNull
     @Override
-    public BaseMovieListsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public BaseMovieListTypeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         return new MovieTrailersViewHolder(
                 DataBindingUtil.inflate(
@@ -34,13 +37,9 @@ public class MovieTrailersAdapter extends BaseMovieListsAdapter<Trailer> {
                         false));
     }
 
-
-    class MovieTrailersViewHolder extends BaseMovieListsAdapter.BaseMovieListsViewHolder implements View.OnClickListener {
+    class MovieTrailersViewHolder extends BaseMovieListTypeViewHolder implements View.OnClickListener {
 
         private TrailersListItemBinding mBinding;
-
-        //            mBinding.setTrailer(trailers.get(getAdapterPosition()));
-//            mBinding.executePendingBindings();
 
         public MovieTrailersViewHolder(TrailersListItemBinding binding) {
             super(binding.getRoot());
@@ -53,13 +52,10 @@ public class MovieTrailersAdapter extends BaseMovieListsAdapter<Trailer> {
             mClickListener.onClickItem(getList().get(getAdapterPosition()));
         }
 
-
         @Override
-        void bind(MovieListable data) {
-            mBinding.setTrailer((Trailer) data);
+        void bind(Trailer trailer) {
+            mBinding.setTrailer(trailer);
             mBinding.executePendingBindings();
         }
     }
-
-
 }

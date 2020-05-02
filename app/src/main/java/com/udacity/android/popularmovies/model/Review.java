@@ -6,7 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "movie_reviews")
-public class Review implements MovieListable {
+public class Review implements MovieUmbrella {
 
     @PrimaryKey(autoGenerate = true)
     public int id;

@@ -1,4 +1,4 @@
-package com.udacity.android.popularmovies.ui.detail;
+package com.udacity.android.popularmovies.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -8,15 +8,17 @@ import androidx.databinding.DataBindingUtil;
 
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.databinding.ReviewsListItemBinding;
-import com.udacity.android.popularmovies.model.MovieListable;
 import com.udacity.android.popularmovies.model.Review;
 
-public class MovieReviewsAdapter extends BaseMovieListsAdapter<Review> {
-
+/**
+ * RecyclerView Adapter for Reviews.
+ *
+ */
+public class MovieReviewsAdapter extends BaseMovieListTypeAdapter<Review> {
 
     @NonNull
     @Override
-    public BaseMovieListsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public BaseMovieListTypeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         return new MovieReviewsViewHolder(
                 DataBindingUtil.inflate(
@@ -26,7 +28,7 @@ public class MovieReviewsAdapter extends BaseMovieListsAdapter<Review> {
                         false));
     }
 
-    class MovieReviewsViewHolder extends BaseMovieListsAdapter.BaseMovieListsViewHolder {
+    class MovieReviewsViewHolder extends BaseMovieListTypeViewHolder {
 
         private ReviewsListItemBinding mBinding;
 
@@ -36,8 +38,8 @@ public class MovieReviewsAdapter extends BaseMovieListsAdapter<Review> {
         }
 
         @Override
-        void bind(MovieListable data) {
-            mBinding.setReview((Review) data);
+        void bind(Review review) {
+            mBinding.setReview(review);
             mBinding.executePendingBindings();
         }
     }

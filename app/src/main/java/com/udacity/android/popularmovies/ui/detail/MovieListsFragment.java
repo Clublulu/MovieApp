@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.ui.MovieOnClickListener;
+import com.udacity.android.popularmovies.ui.adapter.BaseMovieListTypeAdapter;
+import com.udacity.android.popularmovies.ui.adapter.MovieListTypeAdapterFactory;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
 /**
@@ -28,7 +30,6 @@ public class MovieListsFragment extends Fragment implements MovieOnClickListener
     private static final String MOVIE_ID_KEY = "movie_id_key";
     private static final String MOVIE_LIST_LAYOUT_ID = "movie_list_id_key";
 
-    private RecyclerView mRecyclerView;
     private int mMovieId;
     private int mLayoutResId;
 
@@ -53,7 +54,7 @@ public class MovieListsFragment extends Fragment implements MovieOnClickListener
             mLayoutResId = getArguments().getInt(MOVIE_LIST_LAYOUT_ID);
         }
 
-        BaseMovieListsAdapter adapter = MoveListTypeAdapterFactory.create(mLayoutResId, this);
+        BaseMovieListTypeAdapter adapter = MovieListTypeAdapterFactory.create(mLayoutResId, this);
         setupRecyclerViewTrailer(view, adapter);
 
         DetailActivityViewModelFactory factory = MovieInstanceProviderUtil
@@ -75,9 +76,9 @@ public class MovieListsFragment extends Fragment implements MovieOnClickListener
     }
 
     private void setupRecyclerViewTrailer(View view, RecyclerView.Adapter adapter) {
-        mRecyclerView = view.findViewById(R.id.list_details_rv);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        mRecyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = view.findViewById(R.id.list_details_rv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

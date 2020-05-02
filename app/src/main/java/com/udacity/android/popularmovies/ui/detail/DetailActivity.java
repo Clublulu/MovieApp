@@ -1,6 +1,9 @@
 package com.udacity.android.popularmovies.ui.detail;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ToggleButton;
@@ -10,12 +13,15 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 import com.udacity.android.popularmovies.R;
+import com.udacity.android.popularmovies.databinding.FavoritesButtonBinding;
+import com.udacity.android.popularmovies.databinding.FragmentMovieDetailBinding;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
 public class DetailActivity extends AppCompatActivity implements
@@ -26,6 +32,7 @@ public class DetailActivity extends AppCompatActivity implements
     private DetailActivityViewModel mViewModel;
     private int mMovieId;
 
+    private ToggleButton mToggleButton;
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
@@ -35,20 +42,17 @@ public class DetailActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         mToolbar = findViewById(R.id.toolbar_detail);
+        mToggleButton = findViewById(R.id.button_favorite);
         setSupportActionBar(mToolbar);
         initActionBarDrawer(savedInstanceState);
         mMovieId = getIntent().getIntExtra(DETAIL_ACTIVITY_INTENT_EXTRA, -1);
 
         DetailActivityViewModelFactory factory = MovieInstanceProviderUtil
                 .provideDetailActivityViewModelFactory(getApplicationContext(), mMovieId);
-        new ViewModelProvider(this, factory).get(DetailActivityViewModel.class);
+        mViewModel = new ViewModelProvider(this, factory).get(DetailActivityViewModel.class);
 
-        // code block below will allow Detail Activity to display detailed information as soon as it's launched.
-        // commented out because the back button takes user all the way back to main activity screen, preventing user from seeing the nav bar with options
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId)).commit();
-//            mNavigationView.setCheckedItem(R.id.details);
-//        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId)).commit();
+        mNavigationView.setCheckedItem(R.id.details);
     }
 
     public void updateFavorite(View view) {
@@ -60,7 +64,7 @@ public class DetailActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.details:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId)).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId)).commit();
                 mNavigationView.setCheckedItem(R.id.details);
                 break;
 
@@ -78,6 +82,29 @@ public class DetailActivity extends AppCompatActivity implements
         mDrawer.closeDrawer(GravityCompat.START);
         return false;
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_items_detail, menu);
+//        MenuItem menuitem = menu.findItem(R.id.favorites);
+//        boolean isCheckable = menuitem.isCheckable();
+//        boolean isChecked = menuitem.isChecked();
+//
+//        mViewModel.getMovie().observe(this, movie -> {
+//            menuitem.setChecked(movie.isFavorite);
+//        });
+
+
+        FavoritesButtonBinding binding = FavoritesButtonBinding.inflate(LayoutInflater.from(getApplicationContext()));
+        binding.setLifecycleOwner(this);
+        mViewModel.getMovie().observe(this, movie -> {
+            binding.setMovie(movie);
+            binding.executePendingBindings();
+        });
+        return true;
+    }
+
 
     private void initActionBarDrawer(Bundle savedInstanceState) {
         mDrawer = findViewById(R.id.drawer_layout_detail);

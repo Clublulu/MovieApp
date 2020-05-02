@@ -17,7 +17,7 @@ import com.udacity.android.popularmovies.data.database.TrailersTypeConverter;
 import java.util.List;
 
 @Entity(tableName = "movie_table")
-public class Movie {
+public class Movie implements MovieUmbrella {
 
     @PrimaryKey
     @ColumnInfo(name = "movie_id")

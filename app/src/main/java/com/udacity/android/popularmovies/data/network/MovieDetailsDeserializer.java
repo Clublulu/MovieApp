@@ -15,6 +15,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Helper class to deserialize raw json movie detail data.
+ *
+ */
 public final class MovieDetailsDeserializer implements JsonDeserializer<List<Movie>> {
 
     private static Context mContext;

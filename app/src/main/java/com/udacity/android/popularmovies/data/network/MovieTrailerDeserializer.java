@@ -15,6 +15,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Helper class to deserialize raw json movie trailer data.
+ *
+ */
 public class MovieTrailerDeserializer implements JsonDeserializer<List<Trailer>> {
 
     private Context mContext;

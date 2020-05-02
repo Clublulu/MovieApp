@@ -21,7 +21,6 @@ import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
  */
 public class MovieDetailFragment extends Fragment {
 
-    private static final String LOG_TAG = MovieDetailFragment.class.getSimpleName();
 
     private static final String MOVIE_ID_KEY = "movie_id_key";
     private int mMovieId;
@@ -38,23 +37,20 @@ public class MovieDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
-
         if (getArguments() != null) {
             mMovieId = getArguments().getInt(MOVIE_ID_KEY);
         }
-
-        FragmentMovieDetailBinding binding = DataBindingUtil.setContentView(getActivity(), R.layout.fragment_movie_detail);
-        binding.setLifecycleOwner(this);
-        DetailActivityViewModelFactory factory = MovieInstanceProviderUtil.provideDetailActivityViewModelFactory(
-                                                                                getActivity().getApplicationContext(), mMovieId);
+//        FragmentMovieDetailBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movie_detail, container, false);
+        FragmentMovieDetailBinding binding = FragmentMovieDetailBinding.inflate(inflater);
+                binding.setLifecycleOwner(this);
+        DetailActivityViewModelFactory factory = MovieInstanceProviderUtil
+                .provideDetailActivityViewModelFactory(getActivity().getApplicationContext(), mMovieId);
         DetailActivityViewModel viewModel = new ViewModelProvider(this, factory).get(DetailActivityViewModel.class);
         viewModel.getMovie().observe(this, movie -> {
-            binding.setMovie(movie);
+                binding.setMovie(movie);
         });
 
-        return view;
+        return binding.getRoot();
     }
-
 
 }

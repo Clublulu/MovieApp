@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="movie"
+            type="com.udacity.android.popularmovies.model.Movie" />
+    </data>
+
+    <!--<LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">-->
+
+        <ToggleButton
+            android:id="@+id/button_favorite"
+            android:layout_width="34dp"
+            android:layout_height="29dp"
+            android:background="@drawable/favorite_button"
+            android:text=""
+            android:textOff=""
+            android:textOn=""
+            android:checked="@{movie.isFavorite}"
+            android:onClick="updateFavorite" />
+
+        <!-- android:checked="@{movie.isFavorite}" -->
+
+  <!--  </LinearLayout>-->
+</layout>

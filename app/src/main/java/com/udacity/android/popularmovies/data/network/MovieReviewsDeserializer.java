@@ -15,6 +15,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Helper class to deserialize raw json movie review data.
+ *
+ *
+ */
 public class MovieReviewsDeserializer implements JsonDeserializer<List<Review>> {
 
     private Context mContext;
