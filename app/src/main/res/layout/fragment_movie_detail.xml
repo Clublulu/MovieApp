@@ -30,19 +30,7 @@
                     app:layout_constraintStart_toStartOf="@+id/view"
                     app:layout_constraintTop_toTopOf="@+id/view" />
 
-                <ToggleButton
-                    android:id="@+id/button_favorite2"
-                    android:layout_width="34dp"
-                    android:layout_height="29dp"
-                    android:background="@drawable/favorite_button"
-                    android:checked="@{movie.isFavorite}"
-                    android:onClick="updateFavorite"
-                    android:text=""
-                    android:textOff=""
-                    android:textOn=""
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/release_date_tv"
-                    app:layout_constraintTop_toBottomOf="@+id/release_date_tv" />
+
 
                 <ImageView
                     android:id="@+id/detail_movie_image"

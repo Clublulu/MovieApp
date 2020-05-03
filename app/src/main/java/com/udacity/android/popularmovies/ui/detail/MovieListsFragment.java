@@ -1,5 +1,7 @@
 package com.udacity.android.popularmovies.ui.detail;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.android.popularmovies.R;
+import com.udacity.android.popularmovies.model.Trailer;
 import com.udacity.android.popularmovies.ui.MovieOnClickListener;
 import com.udacity.android.popularmovies.ui.adapter.BaseMovieListTypeAdapter;
 import com.udacity.android.popularmovies.ui.adapter.MovieListTypeAdapterFactory;
@@ -83,6 +86,8 @@ public class MovieListsFragment extends Fragment implements MovieOnClickListener
 
     @Override
     public void onClickItem(Object trailer) {
-        Toast.makeText(getActivity().getApplicationContext(),"Trailer Click Event works",Toast.LENGTH_SHORT).show();
+        Uri youtubeUrl = Uri.parse(((Trailer) trailer).url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, youtubeUrl);
+        startActivity(intent);
     }
 }

@@ -1,27 +1,23 @@
 package com.udacity.android.popularmovies.ui.detail;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 import com.udacity.android.popularmovies.R;
-import com.udacity.android.popularmovies.databinding.FavoritesButtonBinding;
-import com.udacity.android.popularmovies.databinding.FragmentMovieDetailBinding;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
 public class DetailActivity extends AppCompatActivity implements
@@ -32,7 +28,7 @@ public class DetailActivity extends AppCompatActivity implements
     private DetailActivityViewModel mViewModel;
     private int mMovieId;
 
-    private ToggleButton mToggleButton;
+    private ToggleButton mFavoritesButton;
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
@@ -42,7 +38,7 @@ public class DetailActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         mToolbar = findViewById(R.id.toolbar_detail);
-        mToggleButton = findViewById(R.id.button_favorite);
+        mFavoritesButton = findViewById(R.id.button_favorite2);
         setSupportActionBar(mToolbar);
         initActionBarDrawer(savedInstanceState);
         mMovieId = getIntent().getIntExtra(DETAIL_ACTIVITY_INTENT_EXTRA, -1);
@@ -53,11 +49,27 @@ public class DetailActivity extends AppCompatActivity implements
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId)).commit();
         mNavigationView.setCheckedItem(R.id.details);
+
+
     }
 
     public void updateFavorite(View view) {
         boolean isFavorite = ((ToggleButton) view).isChecked();
         mViewModel.updateFavorite(mMovieId, isFavorite);
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // sadly, I couldn't figure out how to get the checked state of the toggle button updated via DataBinding,
+        // so I pull a direct reference of the button and set the checked state on it.
+        mViewModel.getMovie().observe(this, movie -> {
+            mFavoritesButton.setChecked(movie.isFavorite);
+            getSupportActionBar().setTitle(movie.title);
+//            setTitle(movie.title);
+        });
+
+        return true;
     }
 
     @Override
@@ -84,34 +96,13 @@ public class DetailActivity extends AppCompatActivity implements
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_items_detail, menu);
-//        MenuItem menuitem = menu.findItem(R.id.favorites);
-//        boolean isCheckable = menuitem.isCheckable();
-//        boolean isChecked = menuitem.isChecked();
-//
-//        mViewModel.getMovie().observe(this, movie -> {
-//            menuitem.setChecked(movie.isFavorite);
-//        });
-
-
-        FavoritesButtonBinding binding = FavoritesButtonBinding.inflate(LayoutInflater.from(getApplicationContext()));
-        binding.setLifecycleOwner(this);
-        mViewModel.getMovie().observe(this, movie -> {
-            binding.setMovie(movie);
-            binding.executePendingBindings();
-        });
-        return true;
-    }
-
-
     private void initActionBarDrawer(Bundle savedInstanceState) {
         mDrawer = findViewById(R.id.drawer_layout_detail);
         ActionBarDrawerToggle mToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open
                 , R.string.navigation_drawer_close);
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
+
 
         mNavigationView = findViewById(R.id.nav_view_detail);
         mNavigationView.setNavigationItemSelectedListener(this);

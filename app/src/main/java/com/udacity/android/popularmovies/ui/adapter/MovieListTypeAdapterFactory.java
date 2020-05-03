@@ -4,11 +4,10 @@ import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.ui.MovieOnClickListener;
 
 /**
- * Factory to generate a specific Movie, Trailer, or Review Adapter based on layout resource id.
+ * Factory to generate a specific Movie, Trailer, or Review Adapter based on the action the user selects in the navigation view.
  *
  */
 public class MovieListTypeAdapterFactory {
-
 
     public static BaseMovieListTypeAdapter create(int layoutResId, MovieOnClickListener clickListener) {
         switch (layoutResId) {

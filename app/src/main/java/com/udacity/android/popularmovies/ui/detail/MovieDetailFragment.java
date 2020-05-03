@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.databinding.FragmentMovieDetailBinding;
 import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
 
@@ -40,9 +38,9 @@ public class MovieDetailFragment extends Fragment {
         if (getArguments() != null) {
             mMovieId = getArguments().getInt(MOVIE_ID_KEY);
         }
-//        FragmentMovieDetailBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movie_detail, container, false);
+
         FragmentMovieDetailBinding binding = FragmentMovieDetailBinding.inflate(inflater);
-                binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(this);
         DetailActivityViewModelFactory factory = MovieInstanceProviderUtil
                 .provideDetailActivityViewModelFactory(getActivity().getApplicationContext(), mMovieId);
         DetailActivityViewModel viewModel = new ViewModelProvider(this, factory).get(DetailActivityViewModel.class);
