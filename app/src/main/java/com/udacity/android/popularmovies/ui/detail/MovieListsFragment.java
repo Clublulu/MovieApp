@@ -39,9 +39,6 @@ public class MovieListsFragment extends Fragment {
     private int mMovieId;
     private int mLayoutResId;
 
-    private YouTubePlayerView mYoutubePlayerView;
-
-
     public static MovieListsFragment getInstance(int movieId, int layoutResId) {
         MovieListsFragment fragment = new MovieListsFragment();
         Bundle bundle = new Bundle();
@@ -56,8 +53,6 @@ public class MovieListsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail_list, container, false);
-//        mYoutubePlayerView = view.findViewById(R.id.youtube_view);
-//        getLifecycle().addObserver(mYoutubePlayerView);
 
         if (getArguments() != null) {
             mMovieId = getArguments().getInt(MOVIE_ID_KEY);
