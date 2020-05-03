@@ -15,6 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.model.Trailer;
 import com.udacity.android.popularmovies.ui.MovieOnClickListener;
@@ -26,7 +29,7 @@ import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
  * Fragment that displayed either the list of Trailers or Reviews.
  *
  */
-public class MovieListsFragment extends Fragment implements MovieOnClickListener {
+public class MovieListsFragment extends Fragment {
 
     private static final String LOG_TAG = MovieListsFragment.class.getSimpleName();
 
@@ -35,6 +38,8 @@ public class MovieListsFragment extends Fragment implements MovieOnClickListener
 
     private int mMovieId;
     private int mLayoutResId;
+
+    private YouTubePlayerView mYoutubePlayerView;
 
 
     public static MovieListsFragment getInstance(int movieId, int layoutResId) {
@@ -51,13 +56,16 @@ public class MovieListsFragment extends Fragment implements MovieOnClickListener
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail_list, container, false);
+//        mYoutubePlayerView = view.findViewById(R.id.youtube_view);
+//        getLifecycle().addObserver(mYoutubePlayerView);
 
         if (getArguments() != null) {
             mMovieId = getArguments().getInt(MOVIE_ID_KEY);
             mLayoutResId = getArguments().getInt(MOVIE_LIST_LAYOUT_ID);
         }
 
-        BaseMovieListTypeAdapter adapter = MovieListTypeAdapterFactory.create(mLayoutResId, this);
+
+        BaseMovieListTypeAdapter adapter = MovieListTypeAdapterFactory.create(mLayoutResId, null);
         setupRecyclerViewTrailer(view, adapter);
 
         DetailActivityViewModelFactory factory = MovieInstanceProviderUtil
@@ -84,10 +92,5 @@ public class MovieListsFragment extends Fragment implements MovieOnClickListener
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void onClickItem(Object trailer) {
-        Uri youtubeUrl = Uri.parse(((Trailer) trailer).url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, youtubeUrl);
-        startActivity(intent);
-    }
+
 }

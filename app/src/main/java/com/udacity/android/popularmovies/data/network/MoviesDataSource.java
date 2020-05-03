@@ -36,8 +36,6 @@ public class MoviesDataSource {
     private static final String MOVIE_DB_API_KEY = "YOUR_API_KEY_HERE";
     public static final String MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3/movie/";
     private static final String MOVIE_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
-    private static final String YOUTUBE_BASE_URL = "https://www.youtube.com/";
-    private static final String YOUTUBE_WATCH_PARAMETER = "watch";
     private static final String IMAGE_SIZE = "w185";
 
     private static final String PERIODIC_MOVIES_SYNC_TAG = "movies_sync_tag";
@@ -98,14 +96,6 @@ public class MoviesDataSource {
         return Uri.parse(MOVIE_IMAGE_BASE_URL).buildUpon()
                 .appendPath(IMAGE_SIZE)
                 .appendEncodedPath(relativePath)
-                .build()
-                .toString();
-    }
-
-    public static String buildYoutubeURL(String trailerKey) {
-        return Uri.parse(YOUTUBE_BASE_URL).buildUpon()
-                .appendPath(YOUTUBE_WATCH_PARAMETER)
-                .appendQueryParameter("v", trailerKey)
                 .build()
                 .toString();
     }

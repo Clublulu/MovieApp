@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -50,7 +49,6 @@ public class DetailActivity extends AppCompatActivity implements
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId)).commit();
         mNavigationView.setCheckedItem(R.id.details);
 
-
     }
 
     public void updateFavorite(View view) {
@@ -66,7 +64,6 @@ public class DetailActivity extends AppCompatActivity implements
         mViewModel.getMovie().observe(this, movie -> {
             mFavoritesButton.setChecked(movie.isFavorite);
             getSupportActionBar().setTitle(movie.title);
-//            setTitle(movie.title);
         });
 
         return true;

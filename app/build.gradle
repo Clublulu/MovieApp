@@ -45,7 +45,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     // Retrofit2
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
-    // RxJava Android
+    // RxJava Androi
     implementation "io.reactivex.rxjava3:rxandroid:$rxjava_version"
     // RxJava
     implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
@@ -65,6 +65,10 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     // Material Design Components
     implementation 'com.google.android.material:material:1.2.0-alpha06'
+    // Android Youtube Player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
+
     // Annotation processors
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"

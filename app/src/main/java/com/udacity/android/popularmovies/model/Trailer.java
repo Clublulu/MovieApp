@@ -1,9 +1,15 @@
 package com.udacity.android.popularmovies.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.squareup.picasso.Picasso;
+import com.udacity.android.popularmovies.utilities.MoviesURLBuilder;
 
 @Entity(tableName = "movie_trailer")
 public class Trailer implements MovieUmbrella {
@@ -28,5 +34,4 @@ public class Trailer implements MovieUmbrella {
         this.url = url;
         this.title = title;
     }
-
 }

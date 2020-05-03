@@ -23,7 +23,7 @@ public class MovieTrailerDeserializer implements JsonDeserializer<List<Trailer>>
 
     private Context mContext;
 
-    private static final int MAX_TRAILER_LIMIT = 3;
+
 
     public MovieTrailerDeserializer(Context context) {
         mContext = context;
@@ -35,13 +35,13 @@ public class MovieTrailerDeserializer implements JsonDeserializer<List<Trailer>>
         JsonObject jsonMovie = json.getAsJsonObject();
         JsonArray trailerResults =  jsonMovie.get(getStringResource(mContext, R.string.results)).getAsJsonArray();
 
-        for (int i = 0; i < getActualResultsCount(trailerResults.size()); i++) {
+        for (int i = 0; i < trailerResults.size(); i++) {
             JsonObject jsonTrailer = trailerResults.get(i).getAsJsonObject();
             String trailerKey = jsonTrailer.get(getStringResource(mContext, R.string.trailer_key)).getAsString();
             String trailerTitle = jsonTrailer.get(getStringResource(mContext, R.string.trailer_name)).getAsString();
 
-            String trailerURL = MoviesDataSource.buildYoutubeURL(trailerKey);
-            trailers.add(new Trailer(trailerURL, trailerTitle));
+
+            trailers.add(new Trailer(trailerKey, trailerTitle));
         }
 
         return trailers;
@@ -52,13 +52,4 @@ public class MovieTrailerDeserializer implements JsonDeserializer<List<Trailer>>
         return context.getString(resId);
     }
 
-    /**
-     * limits the amount of trailers up to MAX_TRAILER_LENGTH.
-     *
-     * @param jsonResultsSize
-     * @return actual count to iterate through.
-     */
-    private int getActualResultsCount(int jsonResultsSize) {
-        return jsonResultsSize > MAX_TRAILER_LIMIT ? MAX_TRAILER_LIMIT : jsonResultsSize;
-    }
 }

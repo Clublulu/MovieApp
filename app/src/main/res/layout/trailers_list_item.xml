@@ -1,45 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <data>
-        <variable
-            name="trailer"
-            type="com.udacity.android.popularmovies.model.Trailer" />
-    </data>
-
-
-
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="6dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/trailer_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="5sp"
+            android:text="@{trailer.title}"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_media_play" />
+            tools:text="Was india better then south africa in current serise?"
+            />
+        <ImageView
+            android:id="@+id/trailer_thumbnail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scaleType="matrix"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trailer_title"
+            />
 
-        <TextView
-            android:id="@+id/textView"
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trailer_title" />
+        <ImageView
+            android:id="@+id/btnPlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Movie Trailer Title"
-            android:text="@{trailer.title}"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#dadada"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            tools:layout_editor_absoluteX="8dp" />
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/trailer_thumbnail"
+            app:layout_constraintEnd_toEndOf="@+id/trailer_thumbnail"
+            app:layout_constraintStart_toStartOf="@+id/trailer_thumbnail"
+            app:layout_constraintTop_toTopOf="@+id/trailer_thumbnail"
+            app:srcCompat="@drawable/ic_play_button"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.cardview.widget.CardView>
+
