@@ -14,7 +14,7 @@ public class MovieListTypeAdapterFactory {
             case R.id.movies:
                 return new MovieIconsAdapter(clickListener);
             case R.id.trailers:
-                return new MovieTrailersAdapter();
+                return new MovieTrailersAdapter(clickListener);
             case R.id.reviews:
                 return new MovieReviewsAdapter();
             default:

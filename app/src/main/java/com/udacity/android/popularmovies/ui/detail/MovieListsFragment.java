@@ -1,12 +1,10 @@
 package com.udacity.android.popularmovies.ui.detail;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,9 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+import com.google.android.youtube.player.YouTubeIntents;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.model.Trailer;
 import com.udacity.android.popularmovies.ui.MovieOnClickListener;
@@ -29,7 +25,7 @@ import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
  * Fragment that displayed either the list of Trailers or Reviews.
  *
  */
-public class MovieListsFragment extends Fragment {
+public class MovieListsFragment extends Fragment implements MovieOnClickListener {
 
     private static final String LOG_TAG = MovieListsFragment.class.getSimpleName();
 
@@ -60,7 +56,7 @@ public class MovieListsFragment extends Fragment {
         }
 
 
-        BaseMovieListTypeAdapter adapter = MovieListTypeAdapterFactory.create(mLayoutResId, null);
+        BaseMovieListTypeAdapter adapter = MovieListTypeAdapterFactory.create(mLayoutResId, this);
         setupRecyclerViewTrailer(view, adapter);
 
         DetailActivityViewModelFactory factory = MovieInstanceProviderUtil
@@ -87,5 +83,13 @@ public class MovieListsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onClickItem(Object item) {
+        Intent youtubeIntent = YouTubeIntents.createPlayVideoIntent(getActivity().getApplicationContext(), ((Trailer) item).url);
+        Intent chooser = Intent.createChooser(youtubeIntent, getString(R.string.youtube_intent_dialog_message));
 
+
+
+        startActivity(chooser);
+    }
 }

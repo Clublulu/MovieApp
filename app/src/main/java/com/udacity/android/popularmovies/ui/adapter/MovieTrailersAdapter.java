@@ -14,6 +14,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import com.squareup.picasso.Picasso;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.model.Trailer;
+import com.udacity.android.popularmovies.ui.MovieOnClickListener;
 import com.udacity.android.popularmovies.utilities.MoviesURLBuilder;
 
 /**
@@ -22,6 +23,11 @@ import com.udacity.android.popularmovies.utilities.MoviesURLBuilder;
  */
 public class MovieTrailersAdapter extends BaseMovieListTypeAdapter<Trailer> {
 
+    private MovieOnClickListener mMovieOnClickListener;
+
+    public MovieTrailersAdapter(MovieOnClickListener movieOnClickListener) {
+        mMovieOnClickListener = movieOnClickListener;
+    }
 
     @NonNull
     @Override
@@ -55,7 +61,7 @@ public class MovieTrailersAdapter extends BaseMovieListTypeAdapter<Trailer> {
 
         @Override
         void bind(Trailer trailer) {
-            mTrailerTitle.setText(trailer.title);
+            configureTitle(trailer);
             String trailerThumbnailImage = MoviesURLBuilder.getInstance().buildYoutubeTrailerThumbnail(trailer.url);
             Picasso.get().load(trailerThumbnailImage).into(mTrailerThumbnail);
             bindYoutubePlayerListener(trailer);
@@ -81,6 +87,14 @@ public class MovieTrailersAdapter extends BaseMovieListTypeAdapter<Trailer> {
                     youTubePlayer.loadVideo(trailer.url, 0);
                 }
             });
+        }
+
+        private void configureTitle(Trailer trailer) {
+            mTrailerTitle.setText(trailer.title);
+            mTrailerTitle.setOnClickListener(v -> {
+                mMovieOnClickListener.onClickItem(trailer);
+            });
+
         }
     }
 }

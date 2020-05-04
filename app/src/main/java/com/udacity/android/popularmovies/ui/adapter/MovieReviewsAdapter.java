@@ -1,13 +1,14 @@
 package com.udacity.android.popularmovies.ui.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.udacity.android.popularmovies.R;
-import com.udacity.android.popularmovies.databinding.ReviewsListItemBinding;
 import com.udacity.android.popularmovies.model.Review;
 
 /**
@@ -20,27 +21,27 @@ public class MovieReviewsAdapter extends BaseMovieListTypeAdapter<Review> {
     @Override
     public BaseMovieListTypeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        return new MovieReviewsViewHolder(
-                DataBindingUtil.inflate(
-                        inflater,
-                        R.layout.reviews_list_item,
-                        viewGroup,
-                        false));
+        View view = inflater.inflate(R.layout.reviews_list_item, viewGroup, false);
+
+        return new MovieReviewsViewHolder(view);
+
     }
 
     class MovieReviewsViewHolder extends BaseMovieListTypeViewHolder {
 
-        private ReviewsListItemBinding mBinding;
+        private ExpandableTextView mExpandableTextView;
+        private TextView mAuthor;
 
-        public MovieReviewsViewHolder(ReviewsListItemBinding binding) {
-            super(binding.getRoot());
-            mBinding = binding;
+        public MovieReviewsViewHolder(View view) {
+            super(view);
+            mExpandableTextView = view.findViewById(R.id.expand_text_view);
+            mAuthor = view.findViewById(R.id.review_author);
         }
 
         @Override
         void bind(Review review) {
-            mBinding.setReview(review);
-            mBinding.executePendingBindings();
+            mExpandableTextView.setText(review.description);
+            mAuthor.setText(review.author);
         }
     }
 }

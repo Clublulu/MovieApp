@@ -67,6 +67,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha06'
     // Android Youtube Player
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    // Youtube Android Player API
+    implementation "com.github.tommus:youtube-android-player-api:$yapa_version"
+    // ExpandableTextView Libray
+    implementation 'com.ms-square:expandableTextView:0.1.4'
 
 
     // Annotation processors
