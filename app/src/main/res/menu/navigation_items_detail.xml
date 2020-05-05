@@ -10,11 +10,11 @@
 
         <item
             android:id="@+id/trailers"
-            android:title="@string/trailers_label" />
+            android:title="@string/trailers" />
 
         <item
             android:id="@+id/reviews"
-            android:title="@string/reviews_label" />
+            android:title="@string/reviews" />
     </group>
 
 </menu>

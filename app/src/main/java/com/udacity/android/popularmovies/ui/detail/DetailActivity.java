@@ -23,6 +23,7 @@ public class DetailActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     public static final String DETAIL_ACTIVITY_INTENT_EXTRA = "DETAIL_ACTIVITY_INTENT_EXTRA";
+    private static final String BACK_STACK_ROOT_TAG = "root_fragment";
 
     private DetailActivityViewModel mViewModel;
     private int mMovieId;
@@ -37,7 +38,7 @@ public class DetailActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         mToolbar = findViewById(R.id.toolbar_detail);
-        mFavoritesButton = findViewById(R.id.button_favorite2);
+        mFavoritesButton = findViewById(R.id.button_favorite);
         setSupportActionBar(mToolbar);
         initActionBarDrawer(savedInstanceState);
         mMovieId = getIntent().getIntExtra(DETAIL_ACTIVITY_INTENT_EXTRA, -1);
@@ -46,9 +47,8 @@ public class DetailActivity extends AppCompatActivity implements
                 .provideDetailActivityViewModelFactory(getApplicationContext(), mMovieId);
         mViewModel = new ViewModelProvider(this, factory).get(DetailActivityViewModel.class);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId)).commit();
+        initiateDetailFragment();
         mNavigationView.setCheckedItem(R.id.details);
-
     }
 
     public void updateFavorite(View view) {
@@ -89,7 +89,16 @@ public class DetailActivity extends AppCompatActivity implements
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
-        return false;
+        return true;
+    }
+
+    private void initiateDetailFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId))
+                .addToBackStack(BACK_STACK_ROOT_TAG)
+                .commit();
     }
 
 
@@ -107,11 +116,14 @@ public class DetailActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
+
         FragmentManager manager =  getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() > 0) {
-            manager.popBackStackImmediate();
+        if (manager.getBackStackEntryCount() > 1) {
+            manager.popBackStackImmediate(BACK_STACK_ROOT_TAG, 0);
+            mNavigationView.setCheckedItem(R.id.details);
         } else {
             super.onBackPressed();
+            finish();
         }
     }
 }

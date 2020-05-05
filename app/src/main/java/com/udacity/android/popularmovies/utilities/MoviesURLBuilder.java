@@ -11,9 +11,7 @@ public class MoviesURLBuilder {
     private static final String MAX_RES_DEFAULT = "maxresdefault.jpg";
 
 
-    private MoviesURLBuilder() {
-
-    }
+    private MoviesURLBuilder() { }
 
     public static MoviesURLBuilder getInstance() {
         if (sInstance == null) {

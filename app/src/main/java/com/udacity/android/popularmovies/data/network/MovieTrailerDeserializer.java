@@ -35,6 +35,7 @@ public class MovieTrailerDeserializer implements JsonDeserializer<List<Trailer>>
         JsonObject jsonMovie = json.getAsJsonObject();
         JsonArray trailerResults =  jsonMovie.get(getStringResource(mContext, R.string.results)).getAsJsonArray();
 
+
         for (int i = 0; i < trailerResults.size(); i++) {
             JsonObject jsonTrailer = trailerResults.get(i).getAsJsonObject();
             String trailerKey = jsonTrailer.get(getStringResource(mContext, R.string.trailer_key)).getAsString();

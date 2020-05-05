@@ -46,13 +46,14 @@
 
         <TextView
             android:id="@+id/no_favorites_added"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:fontFamily="@font/pt_sans"
+            android:textSize="@dimen/text_size"
+            android:visibility="invisible"
             android:text="@string/no_favorites"
-            android:textSize="@dimen/msg_text_size"
-            android:visibility="invisible" />
-
+            tools:text="Data not available." />
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

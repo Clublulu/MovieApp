@@ -10,4 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <TextView
+        android:id="@+id/no_movie_list_message"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pt_sans"
+        android:textSize="@dimen/text_size"
+        android:visibility="invisible"
+        android:text="@string/not_available"
+        tools:text="Data not available." />
+
 </FrameLayout>
