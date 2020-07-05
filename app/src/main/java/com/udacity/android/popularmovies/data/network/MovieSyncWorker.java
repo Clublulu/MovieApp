@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
+import com.udacity.android.popularmovies.utilities.ObjectProviderUtil;
 
 /**
  * This worker runs on a 24 hour schedule to fetch the latest movie data available.
@@ -27,7 +27,7 @@ public class MovieSyncWorker extends Worker {
         Log.d(LOG_TAG, "Starting sync job.");
         // creating instances of objects ... do in method or initialize in context? does
         // an instance of MovieSyncWorker always live in the background?
-        MoviesDataSource dataSource = MovieInstanceProviderUtil
+        MoviesDataSource dataSource = ObjectProviderUtil
                 .provideMoviesDataSource(getApplicationContext());
 
         // constant search criteria... how to go about running a worker that fetches me data for both popular

@@ -15,7 +15,7 @@ import com.udacity.android.popularmovies.model.Review;
  * RecyclerView Adapter for Reviews.
  *
  */
-public class MovieReviewsAdapter extends BaseMovieListTypeAdapter<Review> {
+public class ReviewsAdapter extends BaseListTypeAdapter<Review> {
 
     @NonNull
     @Override

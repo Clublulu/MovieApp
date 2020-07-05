@@ -14,12 +14,12 @@ import java.util.List;
  *
  * @param <T>
  */
-public abstract class BaseMovieListTypeAdapter<T extends MovieUmbrella> extends RecyclerView.Adapter<BaseMovieListTypeAdapter.BaseMovieListTypeViewHolder> {
+public abstract class BaseListTypeAdapter<T extends MovieUmbrella> extends RecyclerView.Adapter<BaseListTypeAdapter.BaseMovieListTypeViewHolder> {
 
     private List<T> mMovieList;
 
     @Override
-    public void onBindViewHolder(BaseMovieListTypeAdapter.BaseMovieListTypeViewHolder viewHolder, int position) {
+    public void onBindViewHolder(BaseListTypeAdapter.BaseMovieListTypeViewHolder viewHolder, int position) {
         viewHolder.bind(mMovieList.get(position));
     }
 

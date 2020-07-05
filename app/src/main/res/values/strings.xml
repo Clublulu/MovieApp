@@ -16,7 +16,9 @@
     <!-- Home Navigation Items -->
 
 
-
+    <string name="app_adapter_movies">movies_adapter</string>
+    <string name="app_adapter_trailers">trailers_adapter</string>
+    <string name="app_adapter_reviews">reviews_adapter</string>
 
 
     <!-- JSON Mapping Keys -->

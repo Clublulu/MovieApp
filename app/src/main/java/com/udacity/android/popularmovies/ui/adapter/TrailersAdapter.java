@@ -11,19 +11,19 @@ import androidx.annotation.NonNull;
 import com.squareup.picasso.Picasso;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.model.Trailer;
-import com.udacity.android.popularmovies.ui.MovieOnClickListener;
+import com.udacity.android.popularmovies.ui.MovieClickListener;
 import com.udacity.android.popularmovies.utilities.MoviesURLBuilder;
 
 /**
  * RecyclerView Adapter for Trailers.
  *
  */
-public class MovieTrailersAdapter extends BaseMovieListTypeAdapter<Trailer> {
+public class TrailersAdapter extends BaseListTypeAdapter<Trailer> {
 
-    private MovieOnClickListener mMovieOnClickListener;
+    private MovieClickListener mMovieClickListener;
 
-    public MovieTrailersAdapter(MovieOnClickListener movieOnClickListener) {
-        mMovieOnClickListener = movieOnClickListener;
+    public TrailersAdapter(MovieClickListener movieClickListener) {
+        mMovieClickListener = movieClickListener;
     }
 
     @NonNull
@@ -50,7 +50,7 @@ public class MovieTrailersAdapter extends BaseMovieListTypeAdapter<Trailer> {
         @Override
         public void onClick(View v)
         {
-            mMovieOnClickListener.onClickItem(getList().get(getAdapterPosition()));
+            mMovieClickListener.onClickItem(getList().get(getAdapterPosition()));
         }
 
         @Override

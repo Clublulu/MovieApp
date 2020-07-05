@@ -106,7 +106,12 @@ public class MoviesRepository {
     
     
     private LiveData<List<Movie>> getFavoriteMovies() {
-        Callable<LiveData<List<Movie>>> callable = () -> mMoviesDao.getFavoriteMovies();
+        Callable<LiveData<List<Movie>>> callable = new Callable<LiveData<List<Movie>>>() {
+            @Override
+            public LiveData<List<Movie>> call() throws Exception {
+                return mMoviesDao.getFavoriteMovies();
+            }
+        };
         Future<LiveData<List<Movie>>> future = ((ExecutorService)
                 mExecutors.getDiskExecutor()).submit(callable);
         LiveData<List<Movie>> movies = null;

@@ -17,16 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.youtube.player.YouTubeIntents;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.model.Trailer;
-import com.udacity.android.popularmovies.ui.MovieOnClickListener;
-import com.udacity.android.popularmovies.ui.adapter.BaseMovieListTypeAdapter;
-import com.udacity.android.popularmovies.ui.adapter.MovieListTypeAdapterFactory;
-import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
+import com.udacity.android.popularmovies.ui.MovieClickListener;
+import com.udacity.android.popularmovies.ui.adapter.BaseListTypeAdapter;
+import com.udacity.android.popularmovies.ui.adapter.ListTypeAdapterFactory;
+import com.udacity.android.popularmovies.utilities.ObjectProviderUtil;
 
 /**
  * Fragment that displayed either the list of Trailers or Reviews.
  *
  */
-public class MovieListsFragment extends Fragment implements MovieOnClickListener {
+public class MovieListsFragment extends Fragment implements MovieClickListener {
 
 
     private static final String MOVIE_ID_KEY = "movie_id_key";
@@ -59,10 +59,10 @@ public class MovieListsFragment extends Fragment implements MovieOnClickListener
             mLayoutResId = getArguments().getInt(MOVIE_LIST_LAYOUT_ID);
         }
 
-        BaseMovieListTypeAdapter adapter = MovieListTypeAdapterFactory.create(mLayoutResId, this);
+        BaseListTypeAdapter adapter = ListTypeAdapterFactory.create(mLayoutResId, this);
         setupRecyclerView(view, adapter);
 
-        DetailActivityViewModelFactory factory = MovieInstanceProviderUtil
+        DetailActivityViewModelFactory factory = ObjectProviderUtil
                 .provideDetailActivityViewModelFactory(getActivity().getApplicationContext(), mMovieId);
         DetailActivityViewModel viewModel = new ViewModelProvider(this, factory)
                 .get(DetailActivityViewModel.class);

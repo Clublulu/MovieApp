@@ -9,17 +9,17 @@ import androidx.databinding.DataBindingUtil;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.databinding.MoviesListItemBinding;
 import com.udacity.android.popularmovies.model.Movie;
-import com.udacity.android.popularmovies.ui.MovieOnClickListener;
+import com.udacity.android.popularmovies.ui.MovieClickListener;
 
 /**
  * RecyclerView Adapter for displaying Movies on main screen.
  *
  */
-public class MovieIconsAdapter extends BaseMovieListTypeAdapter<Movie> {
+public class MoviesAdapter extends BaseListTypeAdapter<Movie> {
 
-    private MovieOnClickListener movieListener;
+    private MovieClickListener movieListener;
 
-    public MovieIconsAdapter(MovieOnClickListener movieListener) {
+    public MoviesAdapter(MovieClickListener movieListener) {
         this.movieListener = movieListener;
     }
 

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.udacity.android.popularmovies.databinding.FragmentMovieDetailBinding;
-import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
+import com.udacity.android.popularmovies.utilities.ObjectProviderUtil;
 
 /**
  * Fragment displaying the detailed information about a Movie.
@@ -41,7 +41,7 @@ public class MovieDetailFragment extends Fragment {
 
         FragmentMovieDetailBinding binding = FragmentMovieDetailBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
-        DetailActivityViewModelFactory factory = MovieInstanceProviderUtil
+        DetailActivityViewModelFactory factory = ObjectProviderUtil
                 .provideDetailActivityViewModelFactory(getActivity().getApplicationContext(), mMovieId);
         DetailActivityViewModel viewModel = new ViewModelProvider(this, factory).get(DetailActivityViewModel.class);
         viewModel.getMovie().observe(this, movie -> {

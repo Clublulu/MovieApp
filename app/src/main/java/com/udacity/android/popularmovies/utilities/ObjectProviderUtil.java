@@ -15,7 +15,7 @@ import com.udacity.android.popularmovies.ui.main.MainActivityViewModelFactory;
  * in addition to providing an instance of the Movies Data Source when triggered from running a service, or a recurring request triggered by WorkManager.
  *
  */
-public class MovieInstanceProviderUtil {
+public class ObjectProviderUtil {
 
     public static DetailActivityViewModelFactory provideDetailActivityViewModelFactory(Context context, int movieId) {
         return new DetailActivityViewModelFactory(getRepository(context), movieId);

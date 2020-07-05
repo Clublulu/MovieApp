@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 import com.udacity.android.popularmovies.R;
-import com.udacity.android.popularmovies.utilities.MovieInstanceProviderUtil;
+import com.udacity.android.popularmovies.utilities.ObjectProviderUtil;
 
 public class DetailActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -43,7 +43,7 @@ public class DetailActivity extends AppCompatActivity implements
         initActionBarDrawer(savedInstanceState);
         mMovieId = getIntent().getIntExtra(DETAIL_ACTIVITY_INTENT_EXTRA, -1);
 
-        DetailActivityViewModelFactory factory = MovieInstanceProviderUtil
+        DetailActivityViewModelFactory factory = ObjectProviderUtil
                 .provideDetailActivityViewModelFactory(getApplicationContext(), mMovieId);
         mViewModel = new ViewModelProvider(this, factory).get(DetailActivityViewModel.class);
 

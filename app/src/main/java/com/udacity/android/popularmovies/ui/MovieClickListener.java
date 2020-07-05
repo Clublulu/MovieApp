@@ -1,6 +1,6 @@
 package com.udacity.android.popularmovies.ui;
 
-public interface MovieOnClickListener {
+public interface MovieClickListener {
     void onClickItem(Object item);
 
 }
