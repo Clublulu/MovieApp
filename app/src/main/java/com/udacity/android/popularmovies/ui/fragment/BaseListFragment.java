@@ -22,13 +22,15 @@ import com.udacity.android.popularmovies.ui.adapter.ListTypeAdapterFactory;
  */
 public abstract class BaseListFragment extends Fragment {
 
+    private static int mMovieId;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup viewGroup, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), viewGroup, false);
         BaseListTypeAdapter adapter = ListTypeAdapterFactory.create(getAdapterResId(), getClickListener());
         setupRecyclerView(view, adapter);
-        observeData(view, adapter);
+        observeData(view, adapter, getMovieId(getArguments()));
 
         return view;
     }
@@ -43,10 +45,17 @@ public abstract class BaseListFragment extends Fragment {
         view.findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
     }
 
+    private int getMovieId(Bundle bundle) {
+        if (bundle != null) {
+            mMovieId = bundle.getInt(BaseDetailListFragment.EXTRA_MOVIE_ID);
+        }
+        return mMovieId;
+    }
+
 
     abstract RecyclerView.LayoutManager getLayoutManager(View view);
 
-    abstract void observeData(View view, BaseListTypeAdapter adapter);
+    abstract void observeData(View view, BaseListTypeAdapter adapter, int movieId);
 
     abstract int getAdapterResId();
 

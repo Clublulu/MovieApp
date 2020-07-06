@@ -4,6 +4,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+/**
+ * TabLayoutClickListener to enable clicking between tabs action.
+ *
+ */
 public class TabLayoutClickListener implements TabLayout.OnTabSelectedListener {
 
     private ViewPager mViewPager;
@@ -18,12 +22,8 @@ public class TabLayoutClickListener implements TabLayout.OnTabSelectedListener {
     }
 
     @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
-    }
+    public void onTabUnselected(TabLayout.Tab tab) { }
 
     @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
-    }
+    public void onTabReselected(TabLayout.Tab tab) { }
 }

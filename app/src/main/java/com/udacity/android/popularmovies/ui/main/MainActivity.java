@@ -3,16 +3,15 @@ package com.udacity.android.popularmovies.ui.main;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.ui.TabLayoutClickListener;
-import com.udacity.android.popularmovies.ui.adapter.MainViewPager;
+import com.udacity.android.popularmovies.ui.fragment.MoviesViewPager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ViewPager mViewPager;
+    private androidx.viewpager.widget.ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +25,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void configureViewPager() {
         mViewPager = findViewById(R.id.tab_viewpager);
-        MainViewPager mainViewPager = new MainViewPager(getSupportFragmentManager());
-        mainViewPager.addFragment(getString(R.string.popular), getString(R.string.popular_label));
-        mainViewPager.addFragment(getString(R.string.top_rated), getString(R.string.top_rated_label));
-        mainViewPager.addFragment(getString(R.string.favorites), getString(R.string.favorites_label));
-        mViewPager.setAdapter(mainViewPager.getAdapter());
+        MoviesViewPager mainMoviesViewPager = MoviesViewPager.getInstance(getSupportFragmentManager());
+        mainMoviesViewPager.addFragment(getString(R.string.popular), getString(R.string.popular_label));
+        mainMoviesViewPager.addFragment(getString(R.string.top_rated), getString(R.string.top_rated_label));
+        mainMoviesViewPager.addFragment(getString(R.string.favorites), getString(R.string.favorites_label));
+        mViewPager.setAdapter(mainMoviesViewPager.getAdapter());
     }
 
     private void configureTabLayout() {

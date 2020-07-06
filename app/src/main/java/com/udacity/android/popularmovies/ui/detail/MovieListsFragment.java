@@ -99,7 +99,6 @@ public class MovieListsFragment extends Fragment implements MovieClickListener {
     public void onClickItem(Object item) {
         Intent youtubeIntent = YouTubeIntents.createPlayVideoIntent(getActivity().getApplicationContext(), ((Trailer) item).url);
         Intent chooser = Intent.createChooser(youtubeIntent, getString(R.string.youtube_intent_dialog_message));
-
         startActivity(chooser);
     }
 

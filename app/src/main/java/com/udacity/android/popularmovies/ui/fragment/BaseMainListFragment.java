@@ -29,7 +29,7 @@ public abstract class BaseMainListFragment extends BaseListFragment implements M
     static final String LOG = BaseMainListFragment.class.getSimpleName();
 
     @Override
-    void observeData(View view, BaseListTypeAdapter adapter) {
+    void observeData(View view, BaseListTypeAdapter adapter, int movieId) {
         MainActivityViewModelFactory factory = ObjectProviderUtil
                 .provideMainActivityViewModelFactory(view.getContext());
         MainActivityViewModel viewModel = new ViewModelProvider(this, factory).get(MainActivityViewModel.class);

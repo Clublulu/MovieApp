@@ -20,6 +20,13 @@
     <string name="app_adapter_trailers">trailers_adapter</string>
     <string name="app_adapter_reviews">reviews_adapter</string>
 
+    <string name="app_viewpager_main">main_viewpager</string>
+    <string name="app_viewpager_detail">detail_viewpager</string>
+
+    <string name="app_movie_details_fragment">movie_details_fragment</string>
+    <string name="app_movie_trailers_fragment">movie_trailers_fragment</string>
+    <string name="app_movie_reviews_fragment">movie_reviews_fragment</string>
+
 
     <!-- JSON Mapping Keys -->
     <string name="results">results</string>
