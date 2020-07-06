@@ -17,7 +17,6 @@
             android:id="@+id/list_item_icon"
             android:layout_width="match_parent"
             android:layout_height="175dp"
-            android:padding="5dp"
             android:scaleType="fitXY"
             app:imageUrl="@{movie.image}"
             app:layout_constraintBottom_toBottomOf="parent"
