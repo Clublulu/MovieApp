@@ -69,6 +69,7 @@
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
 
+    <string name="movie_image_content_description">Movie Image</string>
 
 
     <!-- Test Strings -->

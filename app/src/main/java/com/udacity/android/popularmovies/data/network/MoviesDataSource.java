@@ -36,7 +36,7 @@ public class MoviesDataSource {
     private static final String MOVIE_DB_API_KEY = "1c38f58dda138334ea280fc62955d062";
     public static final String MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3/movie/";
     private static final String MOVIE_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
-    private static final String IMAGE_SIZE = "w185";
+    private static final String IMAGE_SIZE = "w500";
 
     private static final String PERIODIC_MOVIES_SYNC_TAG = "movies_sync_tag";
 

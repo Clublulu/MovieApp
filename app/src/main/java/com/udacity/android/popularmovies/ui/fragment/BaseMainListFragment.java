@@ -62,7 +62,8 @@ public abstract class BaseMainListFragment extends BaseListFragment implements M
     @Override
     public void onClickItem(Object movie) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra(DetailActivity.DETAIL_ACTIVITY_INTENT_EXTRA, ((Movie) movie).movieId);
+        intent.putExtra(DetailActivity.EXTRA_MOVIE_ID, ((Movie) movie).movieId);
+        intent.putExtra(DetailActivity.EXTRA_MOVIE_IMAGE, ((Movie) movie).image);
         startActivity(intent);
     }
 

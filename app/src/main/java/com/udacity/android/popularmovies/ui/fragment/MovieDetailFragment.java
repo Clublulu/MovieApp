@@ -1,4 +1,4 @@
-package com.udacity.android.popularmovies.ui.detail;
+package com.udacity.android.popularmovies.ui.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.udacity.android.popularmovies.databinding.FragmentMovieDetailBinding;
+import com.udacity.android.popularmovies.ui.detail.DetailActivityViewModel;
+import com.udacity.android.popularmovies.ui.detail.DetailActivityViewModelFactory;
 import com.udacity.android.popularmovies.utilities.ObjectProviderUtil;
 
 /**

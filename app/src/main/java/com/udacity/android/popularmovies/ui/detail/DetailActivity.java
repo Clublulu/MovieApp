@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,13 +13,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.squareup.picasso.Picasso;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.ui.TabLayoutClickListener;
 import com.udacity.android.popularmovies.ui.fragment.MoviesViewPager;
 
 public class DetailActivity extends AppCompatActivity {
 
-    public static final String DETAIL_ACTIVITY_INTENT_EXTRA = "DETAIL_ACTIVITY_INTENT_EXTRA";
+    public static final String EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID";
+    public static final String EXTRA_MOVIE_IMAGE = "EXTRA_MOVIE_IMAGE";
     private static final String BACK_STACK_ROOT_TAG = "root_fragment";
 
     private int mMovieId;
@@ -29,14 +32,15 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        mMovieId = getIntent().getIntExtra(DETAIL_ACTIVITY_INTENT_EXTRA, -1);
+        mMovieId = getIntent().getIntExtra(EXTRA_MOVIE_ID, -1);
+        String movieImage = getIntent().getStringExtra(EXTRA_MOVIE_IMAGE);
 
 //        mFavoritesButton = findViewById(R.id.button_favorite);
 
 
+        configureAppBar(movieImage);
         configureViewPager();
         configureTabLayout();
-        configureAppBar();
 
 
 
@@ -69,7 +73,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
-    private void configureAppBar() {
+    private void configureAppBar(String movieImage) {
         Toolbar toolbar = findViewById(R.id.toolbar);
 //        toolbar.setTitle(getIntent().getExtras().getString(EXTRA_RECIPE_NAME));
 //        toolbar.setTitleTextColor(getColor(R.color.colorWhite));
@@ -77,14 +81,12 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-//        ImageView imageView = findViewById(R.id.app_bar_image);
+        ImageView imageView = findViewById(R.id.app_bar_image);
 //        String imageTransitionName = getIntent().getExtras().getString(EXTRA_RECIPE_IMAGE_TRANSITION_NAME);
 //        imageView.setTransitionName(imageTransitionName);
-//        int imageResId = getIntent().getExtras().getInt(DetailActivity.EXTRA_RECIPE_IMAGE);
-//        Picasso.get()
-//                .load(imageResId)
-//                .noFade()
-//                .into(imageView);
+        Picasso.get()
+                .load(movieImage)
+                .into(imageView);
     }
 
 

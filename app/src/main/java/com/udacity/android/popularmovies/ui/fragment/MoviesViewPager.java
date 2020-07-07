@@ -3,7 +3,6 @@ package com.udacity.android.popularmovies.ui.fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.udacity.android.popularmovies.ui.adapter.ViewPagerAdapter;
-import com.udacity.android.popularmovies.ui.detail.MovieDetailFragment;
 
 public class MoviesViewPager {
 
