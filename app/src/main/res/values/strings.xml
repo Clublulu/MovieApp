@@ -16,13 +16,18 @@
     <!-- Home Navigation Items -->
 
 
+    <!-- Adapters -->
     <string name="app_adapter_movies">movies_adapter</string>
+    <string name="app_adapter_movie_details">movie_details_adapter</string>
     <string name="app_adapter_trailers">trailers_adapter</string>
     <string name="app_adapter_reviews">reviews_adapter</string>
 
+    <!-- View Pagers -->
     <string name="app_viewpager_main">main_viewpager</string>
     <string name="app_viewpager_detail">detail_viewpager</string>
 
+
+    <!-- Fragments -->
     <string name="app_movie_details_fragment">movie_details_fragment</string>
     <string name="app_movie_trailers_fragment">movie_trailers_fragment</string>
     <string name="app_movie_reviews_fragment">movie_reviews_fragment</string>
@@ -58,7 +63,7 @@
     <string name="favorite_label">Favorite</string>
     <string name="favorites">favorites</string>
     <string name="sort_criteria_key">sort_criteria</string>
-    <string name="details_label">Details</string>
+    <string name="label_details">Details</string>
     <string name="trailers">Trailers</string>
     <string name="reviews">Reviews</string>
     <string name="not_available">Data not available.</string>

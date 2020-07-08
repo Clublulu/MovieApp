@@ -37,6 +37,9 @@ public abstract class BaseDetailListFragment<T extends MovieUmbrella> extends Ba
             case R.string.app_movie_reviews_fragment:
                 fragment = new ReviewListFragment();
                 break;
+            case R.string.app_movie_details_fragment:
+                fragment = new MovieDetailFragmentNew();
+                break;
             default:
                 throw new IllegalStateException("Unexpected fragment: " + resId);
         }
