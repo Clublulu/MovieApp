@@ -2,7 +2,7 @@
 
 **Version 1.0.0**
 
-A Movie Application displaying the latest movie releases.
+A Movie Application displaying popular and top rated movie releases. 
 
 ## Installation
 
