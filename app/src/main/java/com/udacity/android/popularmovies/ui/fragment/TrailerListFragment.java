@@ -33,4 +33,9 @@ public class TrailerListFragment extends BaseDetailListFragment<Trailer> impleme
     List<Trailer> getItemList(Movie movie) {
         return movie.trailers;
     }
+
+    @Override
+    String noItemsFound() {
+        return getString(R.string.trailers_not_found_message);
+    }
 }

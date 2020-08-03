@@ -32,6 +32,9 @@
     <string name="app_movie_trailers_fragment">movie_trailers_fragment</string>
     <string name="app_movie_reviews_fragment">movie_reviews_fragment</string>
 
+    <string name="trailers_not_found_message">No trailers available</string>
+    <string name="reviews_not_found_message">No reviews available</string>
+
 
     <!-- JSON Mapping Keys -->
     <string name="results">results</string>

@@ -42,18 +42,6 @@ public class DetailActivity extends AppCompatActivity {
         configureViewPager();
         configureTabLayout();
 
-
-
-
-
-
-//
-//        DetailActivityViewModelFactory factory = ObjectProviderUtil
-//                .provideDetailActivityViewModelFactory(getApplicationContext(), mMovieId);
-//        mViewModel = new ViewModelProvider(this, factory).get(DetailActivityViewModel.class);
-//
-//        initiateDetailFragment();
-//        mNavigationView.setCheckedItem(R.id.details);
     }
 
     private void configureViewPager() {
@@ -110,37 +98,6 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//        switch (menuItem.getItemId()) {
-//            case R.id.details:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId)).commit();
-//                mNavigationView.setCheckedItem(R.id.details);
-//                break;
-//
-//            case R.id.trailers:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieListsFragment.getInstance(mMovieId, R.id.trailers)).addToBackStack(null).commit();
-//                mNavigationView.setCheckedItem(R.id.trailers);
-//                break;
-//
-//            case R.id.reviews:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MovieListsFragment.getInstance(mMovieId, R.id.reviews)).addToBackStack(null).commit();
-//                mNavigationView.setCheckedItem(R.id.reviews);
-//                break;
-//        }
-//
-//        mDrawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
-
-    private void initiateDetailFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.fragment_container, MovieDetailFragment.getInstance(mMovieId))
-//                .addToBackStack(BACK_STACK_ROOT_TAG)
-//                .commit();
-    }
 
 
     @Override

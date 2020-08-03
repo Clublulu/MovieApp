@@ -16,10 +16,6 @@ public class MoviesViewPager {
         return new MoviesViewPager(fragmentManager);
     }
 
-    public void addFragment(int movieId, String tabTitle) {
-        mAdapter.addFrag(MovieDetailFragment.getInstance(movieId), tabTitle);
-    }
-
     public void addFragment(String sortCriteria, String tabTitle) {
         mAdapter.addFrag(MovieListFragment.getInstance(sortCriteria), tabTitle);
     }

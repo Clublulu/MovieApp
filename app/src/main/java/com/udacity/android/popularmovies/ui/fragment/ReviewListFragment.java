@@ -26,4 +26,9 @@ public class ReviewListFragment extends BaseDetailListFragment<Review> {
     List<Review> getItemList(Movie movie) {
         return movie.reviews;
     }
+
+    @Override
+    String noItemsFound() {
+        return getString(R.string.reviews_not_found_message);
+    }
 }

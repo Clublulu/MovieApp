@@ -55,30 +55,30 @@
                     app:layout_constraintTop_toBottomOf="@id/release_date_label"
                     tools:text="Average Rating:" />
 
-                <TextView
-                    android:id="@+id/average_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/pt_sans"
-                    android:textSize="@dimen/text_size"
-                    android:text="@{movie.averageRating}"
-                    app:layout_constraintRight_toRightOf="@id/release_date"
-                    app:layout_constraintTop_toBottomOf="@id/average_rating_label"
-                    app:layout_constraintBottom_toTopOf="@id/average_rating_label"
-                    tools:text="8.0 / 10.0" />
+<!--                <TextView-->
+<!--                    android:id="@+id/average_rating"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/pt_sans"-->
+<!--                    android:textSize="@dimen/text_size"-->
+<!--                    android:text="@{movie.averageRating}"-->
+<!--                    app:layout_constraintRight_toRightOf="@id/release_date"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/average_rating_label"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/average_rating_label"-->
+<!--                    tools:text="8.0 / 10.0" />-->
 
-                <TextView
-                    android:id="@+id/movie_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_large"
-                    android:fontFamily="@font/pt_sans"
-                    android:textSize="@dimen/text_size"
-                    android:text="@{movie.description}"
-                    app:layout_constraintStart_toStartOf="@+id/detail_movie_image"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_movie_image"
-                    tools:text="Frodo continues his journey through the
-                        mountainous terrain to destroy the ring once and for all." />
+<!--                <TextView-->
+<!--                    android:id="@+id/movie_description"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_large"-->
+<!--                    android:fontFamily="@font/pt_sans"-->
+<!--                    android:textSize="@dimen/text_size"-->
+<!--                    android:text="@{movie.description}"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/detail_movie_image"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/detail_movie_image"-->
+<!--                    tools:text="Frodo continues his journey through the-->
+<!--                        mountainous terrain to destroy the ring once and for all." />-->
 
 
 

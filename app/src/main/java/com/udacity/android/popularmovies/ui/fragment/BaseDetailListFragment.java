@@ -2,6 +2,7 @@ package com.udacity.android.popularmovies.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,7 +39,7 @@ public abstract class BaseDetailListFragment<T extends MovieUmbrella> extends Ba
                 fragment = new ReviewListFragment();
                 break;
             case R.string.app_movie_details_fragment:
-                fragment = new MovieDetailFragmentNew();
+                fragment = new MovieDetailFragment();
                 break;
             default:
                 throw new IllegalStateException("Unexpected fragment: " + resId);
@@ -60,7 +61,13 @@ public abstract class BaseDetailListFragment<T extends MovieUmbrella> extends Ba
         viewModel.getMovie().observe(this, movie -> {
             if (movie != null) {
                 hideProgressBar(view);
-                adapter.swapData(getItemList(movie));
+                if (!isItemListEmpty(movie)) {
+                    adapter.swapData(getItemList(movie));
+                } else {
+                    TextView noListItemsFound = view.findViewById(R.id.no_list_items_available);
+                    noListItemsFound.setText(noItemsFound());
+                    noListItemsFound.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -76,6 +83,12 @@ public abstract class BaseDetailListFragment<T extends MovieUmbrella> extends Ba
     @Override
     int getLayoutId() {
         return R.layout.list_fragment;
+    }
+
+    abstract String noItemsFound();
+
+    private boolean isItemListEmpty(Movie movie) {
+        return getItemList(movie) == null || getItemList(movie).size() == 0;
     }
 
 }

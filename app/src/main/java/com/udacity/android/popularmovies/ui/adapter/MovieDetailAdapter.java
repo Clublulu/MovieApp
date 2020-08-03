@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 
 import com.udacity.android.popularmovies.R;
-import com.udacity.android.popularmovies.databinding.MovieDetailListItemBinding;
+import com.udacity.android.popularmovies.databinding.FragmentMovieDetailBinding;
 import com.udacity.android.popularmovies.model.Movie;
 
 public class MovieDetailAdapter  extends BaseListTypeAdapter<Movie>  {
@@ -17,16 +17,16 @@ public class MovieDetailAdapter  extends BaseListTypeAdapter<Movie>  {
     @Override
     public BaseMovieListTypeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        MovieDetailListItemBinding binding = DataBindingUtil
-                .inflate(inflater, R.layout.movie_detail_list_item, viewGroup, false);
+        FragmentMovieDetailBinding binding = DataBindingUtil
+                .inflate(inflater, R.layout.fragment_movie_detail, viewGroup, false);
         return new MovieDetailViewHolder(binding);
     }
 
     class MovieDetailViewHolder extends BaseMovieListTypeViewHolder {
 
-        public MovieDetailListItemBinding binding;
+        public FragmentMovieDetailBinding binding;
 
-        public MovieDetailViewHolder(MovieDetailListItemBinding binding) {
+        public MovieDetailViewHolder(FragmentMovieDetailBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
