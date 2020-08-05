@@ -11,4 +11,13 @@
     <dimen name="margin_small">4dp</dimen>
     <dimen name="margin_medium">8dp</dimen>
     <dimen name="margin_large">16dp</dimen>
+
+
+    <dimen name="fragment_movie_detail_average_rating_margin">32dp</dimen>
+    <dimen name="fragment_movie_detail_description_margin_top">40dp</dimen>
+
+
+    <dimen name="detail_activity_horizontal_margin">8dp</dimen>
+    <dimen name="detail_activity_vertical_margin">8dp</dimen>
+
 </resources>

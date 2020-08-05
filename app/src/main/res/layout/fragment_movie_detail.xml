@@ -9,78 +9,55 @@
     </data>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:background="@android:color/darker_gray" >
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/release_date_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_medium"
-                    android:fontFamily="@font/pt_sans"
-                    android:text="@string/release_date_label"
-                    android:textSize="@dimen/text_size"
-                    app:layout_constraintTop_toTopOf="@id/detail_movie_image"
-                    app:layout_constraintLeft_toRightOf="@id/detail_movie_image"
-                    tools:text="Release Date: " />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/detail_activity_horizontal_margin"
+                android:layout_marginTop="@dimen/detail_activity_vertical_margin"
+                android:layout_marginRight="@dimen/detail_activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/detail_activity_vertical_margin">
 
                 <TextView
                     android:id="@+id/release_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/pt_sans"
+                    style="@style/DetailLabelHeading"
                     android:text="@{movie.releaseDate}"
-                    android:textSize="@dimen/text_size"
-                    android:layout_marginLeft="@dimen/margin_medium"
-                    app:layout_constraintTop_toBottomOf="@id/release_date_label"
-                    app:layout_constraintBottom_toTopOf="@id/release_date_label"
-                    app:layout_constraintLeft_toRightOf="@id/release_date_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="December 18, 2002" />
 
                 <TextView
-                    android:id="@+id/average_rating_label"
+                    android:id="@+id/average_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/pt_sans"
-                    android:textSize="@dimen/text_size"
-                    android:text="@string/average_rating_label"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    app:layout_constraintLeft_toLeftOf="@id/release_date_label"
-                    app:layout_constraintTop_toBottomOf="@id/release_date_label"
-                    tools:text="Average Rating:" />
+                    android:layout_marginLeft="@dimen/fragment_movie_detail_average_rating_margin"
+                    style="@style/DetailLabelHeading"
+                    android:text="@{movie.averageRating}"
+                    app:layout_constraintLeft_toRightOf="@id/release_date"
+                    app:layout_constraintTop_toTopOf="@id/release_date"
+                    tools:text="7.5 / 10" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/average_rating"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:fontFamily="@font/pt_sans"-->
-<!--                    android:textSize="@dimen/text_size"-->
-<!--                    android:text="@{movie.averageRating}"-->
-<!--                    app:layout_constraintRight_toRightOf="@id/release_date"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/average_rating_label"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/average_rating_label"-->
-<!--                    tools:text="8.0 / 10.0" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/movie_description"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_margin="@dimen/margin_large"-->
-<!--                    android:fontFamily="@font/pt_sans"-->
-<!--                    android:textSize="@dimen/text_size"-->
-<!--                    android:text="@{movie.description}"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/detail_movie_image"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/detail_movie_image"-->
-<!--                    tools:text="Frodo continues his journey through the-->
-<!--                        mountainous terrain to destroy the ring once and for all." />-->
-
-
+                <TextView
+                    android:id="@+id/movie_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fragment_movie_detail_description_margin_top"
+                    style="@style/DetailLabelHeading"
+                    android:text="@{movie.description}"
+                    app:layout_constraintTop_toBottomOf="@id/release_date"
+                    app:layout_constraintLeft_toLeftOf="@id/release_date"
+                    tools:text="Set in the fictional world of Middle-earth,
+                                the films follow the hobbit Frodo Baggins as he and the Fellowship
+                                embark on a quest to destroy the One Ring, to ensure the destruction of its maker,
+                                the Dark Lord Sauron"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
