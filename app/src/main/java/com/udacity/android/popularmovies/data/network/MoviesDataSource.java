@@ -6,16 +6,12 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 import com.udacity.android.popularmovies.model.Movie;
 import com.udacity.android.popularmovies.model.Review;
 import com.udacity.android.popularmovies.model.Trailer;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -33,7 +29,7 @@ public class MoviesDataSource {
     private static final String LOG_TAG = MoviesDataSource.class.getSimpleName();
 
     // API key used to query moviedb. Please replace with your own.
-    private static final String MOVIE_DB_API_KEY = "1c38f58dda138334ea280fc62955d062";
+    private static final String MOVIE_DB_API_KEY = "YOUR_API_KEY_GOES_HERE";
     public static final String MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3/movie/";
     private static final String MOVIE_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
     private static final String IMAGE_SIZE = "w500";

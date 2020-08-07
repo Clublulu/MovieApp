@@ -68,6 +68,9 @@ dependencies {
     implementation "com.github.tommus:youtube-android-player-api:$yapa_version"
     // ExpandableTextView Libray
     implementation 'com.ms-square:expandableTextView:0.1.4'
+    // Paging Library
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
 
 
     // Annotation processors
