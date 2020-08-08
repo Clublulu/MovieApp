@@ -12,7 +12,7 @@ The Movie App uses the following dependencies:
 * Room - A persistence library that helps create a local database cache of the application's data.
 * LiveData - A life-cycle aware, data holder object that observes for data changes to update the UI.
 * ViewModel - Stores and manages UI-related data in a life-cycle conscious way, allowing data to survive during 
- configuration changes like a screen rotation.
+              configuration changes like a screen rotation.
 * Retrofit2 - A type-safe REST client making it easy to fetch & upload JSON (or any other structure data) via REST based web services.
 * Retrofit2 RxJava Adapter - A type of Retrofit Call Adapter for extending support to RxJava service method return types.
 * RxJava - Third party library allowing for event-based programming with the help of Observables and Subscribers.
@@ -30,10 +30,9 @@ The Movie App uses the following dependencies:
 
 Below are the prerequisites and steps to be taken in order to get the app up and running:
 
-1. Android Studio 4.0 and Gradle version 4.0.1 installed.
+1. Make sure Android Studio 4.0 and Gradle version 4.0.1 are installed.
 2. The Movie Database API contains authentication requiring a valid API key in order to consume their data.
-   - Create an Account with The Movie Database
+   - Create an account with The Movie Database.
    - Log into your account and request an API Key by clicking the "API" link in the left hand side bar of the account page.
-  
-3. Find class MoviesDataSource and modify the field MOVIE_DB_API_KEY with your movie database API key.
+3. Find the MoviesDataSource class and modify the field MOVIE_DB_API_KEY with your movie database API key.
 4. Rebuild project and press Play!
