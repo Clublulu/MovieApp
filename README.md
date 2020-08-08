@@ -14,10 +14,10 @@ The Movie App uses the following dependencies:
 * ViewModel - Manages UI-related data in a life-cycle conscious way, allowing it to survive configuration changes.
 * Retrofit2 - A type-safe REST client that fetches & uploads structured data like JSON via REST based web services.
 * Retrofit2 RxJava Adapter - A type of Retrofit Call Adapter for extending support to RxJava service method return types.
-* RxJava - Third party library allowing for event-based programming with the help of Observables and Subscribers.
+* RxJava - Allows for event-based programming with the help of Observables and Subscribers.
 * RxJava Android - Provides additional utility classes for the Android platform.
 * Gson - Java based library used to help serialize / deserialize JSON objects.
-* Gson Converter - Utility library that creates a Converter Factory for Retrofit to serialize / deserialize Gson objects.
+* Gson Converter - Creates a Converter Factory for Retrofit to serialize / deserialize Gson objects.
 * RecyclerView - Supports displaying lists of data, working with Adapter & View Holder patterns to account for data changes.
 * Picasso - Library used for manipulating and caching images.
 * Material Design Components - Building blocks for designing UI's that provide a user rich experience.
