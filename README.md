@@ -32,8 +32,8 @@ Below are the prerequisites and steps to be taken in order to get the app up and
 
 1. Android Studio 4.0 and Gradle version 4.0.1 installed.
 2. The Movie Database API contains authentication requiring a valid API key in order to consume their data.
-  - Create an Account with The Movie Database
-  - Log into your account and request an API Key by clicking the "API" link in the left hand side bar of the account page.
+   - Create an Account with The Movie Database
+   - Log into your account and request an API Key by clicking the "API" link in the left hand side bar of the account page.
   
 3. Find class MoviesDataSource and modify the field MOVIE_DB_API_KEY with your movie database API key.
 4. Rebuild project and press Play!
