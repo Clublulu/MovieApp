@@ -2,10 +2,8 @@
 
 The Movie App is a movie application displaying the latest movie releases with the help of The Movie Database API.
 It utilizes a combination of the Model-View-ViewModel (MVVM) design pattern, 
-popular third party libraries, as well as components from the Android Jetpack library to compose a 
-clean and robust system architecture.
-
-
+popular third party libraries like Retrofit, Picasso, and RxJava, 
+along with components from Android Jetpack to compose a clean and robust system architecture.
 
 ## Dependencies
 
@@ -22,12 +20,15 @@ The Movie App uses the following dependencies:
 * Gson - Java based library used to help serialize / deserialize JSON objects.
 * Gson Converter - Utility library that creates a Converter Factory for Retrofit to serialize / deserialize Gson objects.
 * RecyclerView - A View displaying scrollable list of data sets, utilizing a combination of the ViewHolder & Adapter patterns to adjust for data changes.
-
-
+* Picasso - Library used for manipulating and caching images.
+* Material Design Components - Building blocks for designing UI's that provide a user rich experience.
+* Youtube Android Player API - Third party library enabling video playback functionality, exposing methods to load / cue Youtube videos with ease.
+* ExpandableTextView API - Enables TextViews to easily expand / collapse, showing more text.
+* Paging Library - Allows for displaying small chunks of data at a time, reducing network bandwidth and system resource usage.
 
 ## Installation
 
-There are a couple of requirements that need to be done in order to get the app up and running:
+Below are the prerequisites and steps to be taken in order to get the app up and running:
 
 1. Android Studio 4.0 and Gradle version 4.0.1 installed.
 2. The Movie Database API contains authentication requiring a valid API key in order to consume their data.
