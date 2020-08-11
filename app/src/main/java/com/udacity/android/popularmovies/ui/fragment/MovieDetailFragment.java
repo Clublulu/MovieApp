@@ -1,36 +1,48 @@
 package com.udacity.android.popularmovies.ui.fragment;
 
-import com.udacity.android.popularmovies.R;
-import com.udacity.android.popularmovies.model.Movie;
-import com.udacity.android.popularmovies.ui.MovieClickListener;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
-public class MovieDetailFragment extends BaseDetailListFragment<Movie> {
+import com.udacity.android.popularmovies.databinding.FragmentMovieDetailBinding;
+import com.udacity.android.popularmovies.ui.detail.DetailActivityViewModel;
+import com.udacity.android.popularmovies.ui.detail.DetailActivityViewModelFactory;
+import com.udacity.android.popularmovies.utilities.ObjectProviderUtil;
 
+public class MovieDetailFragment extends Fragment {
 
-    @Override
-    List<Movie> getItemList(Movie movie) {
-        List<Movie> movies = new ArrayList<>();
-        movies.add(movie);
-        return movies;
+    private static final String EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID";
+    private int mMovieId;
+
+    public static Fragment getInstance(int movieId) {
+        Fragment fragment = new MovieDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(EXTRA_MOVIE_ID, movieId);
+        fragment.setArguments(bundle);
+
+        return fragment;
     }
 
-
-    // empty implementation -- MovieDetailFragment doesn't return items
+    @Nullable
     @Override
-    String noItemsFound() {
-        return null;
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        FragmentMovieDetailBinding binding = FragmentMovieDetailBinding.inflate(inflater);
+        mMovieId = getArguments().getInt(EXTRA_MOVIE_ID);
 
-    @Override
-    int getAdapterResId() {
-        return R.string.app_adapter_movie_details;
-    }
+        DetailActivityViewModelFactory factory = ObjectProviderUtil
+                .provideDetailActivityViewModelFactory(getContext(), mMovieId);
+        DetailActivityViewModel viewModel = new ViewModelProvider(this, factory)
+                .get(DetailActivityViewModel.class);
+        viewModel.getMovie().observe(this,
+                movie -> binding.setMovie(movie));
 
-    @Override
-    MovieClickListener getClickListener() {
-        return null;
+
+        return binding.getRoot();
     }
 }

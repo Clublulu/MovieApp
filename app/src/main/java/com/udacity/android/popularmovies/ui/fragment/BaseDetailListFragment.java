@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,8 +30,8 @@ public abstract class BaseDetailListFragment<T extends MovieUmbrella> extends Ba
 
     static final String EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID";
 
-    public static BaseDetailListFragment getInstance(MovieClickListener clickListener, int resId, int movieId) {
-        BaseDetailListFragment fragment;
+    public static Fragment getInstance(MovieClickListener clickListener, int resId, int movieId) {
+        Fragment fragment;
         switch (resId) {
             case R.string.app_movie_trailers_fragment:
                 fragment = new TrailerListFragment();
@@ -90,5 +91,4 @@ public abstract class BaseDetailListFragment<T extends MovieUmbrella> extends Ba
     private boolean isItemListEmpty(Movie movie) {
         return getItemList(movie) == null || getItemList(movie).size() == 0;
     }
-
 }
