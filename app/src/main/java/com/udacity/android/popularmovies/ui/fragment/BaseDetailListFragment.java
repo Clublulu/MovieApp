@@ -28,31 +28,6 @@ import java.util.List;
  */
 public abstract class BaseDetailListFragment<T extends MovieUmbrella> extends BaseListFragment {
 
-    static final String EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID";
-
-    public static Fragment getInstance(MovieClickListener clickListener, int resId, int movieId) {
-        Fragment fragment;
-        switch (resId) {
-            case R.string.app_movie_trailers_fragment:
-                fragment = new TrailerListFragment();
-                break;
-            case R.string.app_movie_reviews_fragment:
-                fragment = new ReviewListFragment();
-                break;
-            case R.string.app_movie_details_fragment:
-                fragment = new MovieDetailFragment();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected fragment: " + resId);
-        }
-
-        Bundle bundle = new Bundle();
-        bundle.putInt(EXTRA_MOVIE_ID, movieId);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-
     @Override
     void observeData(View view, BaseListTypeAdapter adapter, int movieId) {
         DetailActivityViewModelFactory factory = ObjectProviderUtil

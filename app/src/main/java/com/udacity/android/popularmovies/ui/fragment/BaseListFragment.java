@@ -47,7 +47,7 @@ public abstract class BaseListFragment extends Fragment {
 
     private int getMovieId(Bundle bundle) {
         if (bundle != null) {
-            mMovieId = bundle.getInt(BaseDetailListFragment.EXTRA_MOVIE_ID);
+            mMovieId = bundle.getInt(MovieFragmentFactory.EXTRA_MOVIE_ID);
         }
         return mMovieId;
     }

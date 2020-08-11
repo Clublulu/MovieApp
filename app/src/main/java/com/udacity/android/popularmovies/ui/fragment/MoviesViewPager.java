@@ -17,11 +17,11 @@ public class MoviesViewPager {
     }
 
     public void addFragment(String sortCriteria, String tabTitle) {
-        mAdapter.addFrag(MovieListFragment.getInstance(sortCriteria), tabTitle);
+        mAdapter.addFrag(MovieFragmentFactory.getInstance(sortCriteria), tabTitle);
     }
 
     public void addFragment(int fragResId, int movieId, String tabTitle) {
-        mAdapter.addFrag(BaseDetailListFragment.getInstance(null, fragResId, movieId), tabTitle);
+        mAdapter.addFrag(MovieFragmentFactory.getInstance(fragResId, movieId), tabTitle);
     }
 
 
