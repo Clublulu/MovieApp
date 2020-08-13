@@ -35,7 +35,7 @@ public class TrailerListFragment extends BaseDetailListFragment<Trailer> impleme
     }
 
     @Override
-    String noItemsFound() {
-        return getString(R.string.trailers_not_found_message);
+    String getNoItemText() {
+        return null;
     }
 }

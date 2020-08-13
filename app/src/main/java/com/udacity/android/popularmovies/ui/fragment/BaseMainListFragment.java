@@ -2,8 +2,8 @@ package com.udacity.android.popularmovies.ui.fragment;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,8 +26,6 @@ import java.util.List;
  */
 public abstract class BaseMainListFragment extends BaseListFragment implements MovieClickListener {
 
-    static final String LOG = BaseMainListFragment.class.getSimpleName();
-
     @Override
     void observeData(View view, BaseListTypeAdapter adapter, int movieId) {
         MainActivityViewModelFactory factory = ObjectProviderUtil
@@ -38,6 +36,11 @@ public abstract class BaseMainListFragment extends BaseListFragment implements M
             if (movies != null && movies.size() != 0) {
                 hideProgressBar(view);
                 adapter.swapData(movies);
+            } else if (hasNoFavorites(movies)) {
+                hideProgressBar(view);
+                TextView noListItemsFound = view.findViewById(R.id.no_list_items_available);
+                noListItemsFound.setText(getNoItemText());
+                noListItemsFound.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -76,4 +79,10 @@ public abstract class BaseMainListFragment extends BaseListFragment implements M
     int getLayoutId() {
         return R.layout.list_fragment;
     }
+
+    private boolean hasNoFavorites(List<Movie> movies) {
+        return getSortCriteria().equals(getString(R.string.favorites)) &&
+                (movies == null || movies.size() == 0);
+    }
+
 }

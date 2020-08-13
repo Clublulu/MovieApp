@@ -62,4 +62,6 @@ public abstract class BaseListFragment extends Fragment {
     abstract MovieClickListener getClickListener();
 
     abstract int getLayoutId();
+
+    abstract String getNoItemText();
 }

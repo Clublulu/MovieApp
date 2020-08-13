@@ -2,9 +2,7 @@ package com.udacity.android.popularmovies.ui.detail;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -29,10 +27,8 @@ public class DetailActivity extends AppCompatActivity {
         mMovieId = getIntent().getIntExtra(EXTRA_MOVIE_ID, -1);
         String movieImage = getIntent().getStringExtra(EXTRA_MOVIE_IMAGE);
 
-
         ImageView movie_cover = findViewById(R.id.movie_detail_cover);
         Picasso.get().load(movieImage).into(movie_cover);
-//        mFavoritesButton = findViewById(R.id.button_favorite);
 
         configureViewPager();
     }
@@ -44,12 +40,6 @@ public class DetailActivity extends AppCompatActivity {
         moviesViewPager.addFragment(R.string.app_movie_reviews_fragment, mMovieId, getString(R.string.reviews));
         mViewPager.setAdapter(moviesViewPager.getAdapter());
     }
-
-    public void updateFavorite(View view) {
-        boolean isFavorite = ((ToggleButton) view).isChecked();
-//        mViewModel.updateFavorite(mMovieId, isFavorite);
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

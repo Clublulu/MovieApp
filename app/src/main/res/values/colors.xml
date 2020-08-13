@@ -6,4 +6,7 @@
 
     <color name="primaryText">#212121</color>
     <color name="darkPrimary">#512DA8</color>
+
+    <color name="color_heart_empty">#D32F2F</color>
+    <color name="color_heart_full">#D32F2F</color>
 </resources>

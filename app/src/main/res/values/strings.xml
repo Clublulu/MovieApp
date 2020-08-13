@@ -34,6 +34,10 @@
 
     <string name="trailers_not_found_message">No trailers available</string>
     <string name="reviews_not_found_message">No reviews available</string>
+    <string name="favorites_not_found_message">No Favorites added</string>
+
+
+    <string name="fragment_movie_detail_label_overview">Overview</string>
 
 
     <!-- JSON Mapping Keys -->
@@ -78,11 +82,26 @@
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
 
     <string name="movie_image_content_description">Movie Image</string>
+    <string name="content_description_favorite">mark this joke as favorite</string>
+
+    <!-- String definitions for Heart animation -->
+    <string name="heart_empty_path">M32.95,19 C31.036,19 29.199,19.8828338 28,21.2724796 C26.801,19.8828338 24.964,19 23.05,19 C19.6565,19 17,21.6321526 17,24.9945504 C17,29.1089918 20.74,32.4713896 26.405,37.5667575 L28,39 L29.595,37.5667575 C35.26,32.4713896 39,29.1089918 39,24.9945504 C39,21.6321526 36.3435,19 32.95,19 L32.95,19 Z M28.1155,35.9536785 L28,36.0572207 L27.8845,35.9536785 C22.654,31.2506812 19.2,28.1444142 19.2,24.9945504 C19.2,22.8201635 20.8555,21.1798365 23.05,21.1798365 C24.744,21.1798365 26.394,22.2643052 26.9715,23.7520436 L29.023,23.7520436 C29.606,22.2643052 31.256,21.1798365 32.95,21.1798365 C35.1445,21.1798365 36.8,22.8201635 36.8,24.9945504 C36.8,28.1444142 33.346,31.2506812 28.1155,35.9536785 L28.1155,35.9536785 Z</string>
+    <string name="heart_full_path">M28,39 L26.405,37.5667575 C20.74,32.4713896 17,29.1089918 17,24.9945504 C17,21.6321526 19.6565,19 23.05,19 C24.964,19 26.801,19.8828338 28,21.2724796 C29.199,19.8828338 31.036,19 32.95,19 C36.3435,19 39,21.6321526 39,24.9945504 C39,29.1089918 35.26,32.4713896 29.595,37.5667575 L28,39 L28,39 Z</string>
+    <string name="heart_clip_hidden">M18 37 L38 37 L38 37 L18 37 Z</string>
+    <string name="heart_clip_shown">M0 0 L56 0 L56 56 L0 56 Z</string>
+
+
 
 
     <!-- Test Strings -->
     <string name="tools_review_author">Author</string>
     <string name="tools_review_description">A review an author has left about the movie. May it be good or bad, Im just writing to make this text longer. Bla</string>
+    <string name="fragment_movie_detail_movie_title">Jumanji</string>
+    <string name="fragment_movie_detail_release_date">2018-04-25</string>
+    <string name="fragment_movie_detail_description">Alan Parrish has been trapped in Jumanji, an ancient magical board game, for 26 years. When he is finally freed by two children,
+        a herd of exotic wild animals has accidentally been released as well,
+        and he must try to save his hometown from destruction.</string>
+
 
 
 </resources>

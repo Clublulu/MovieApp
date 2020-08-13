@@ -41,7 +41,7 @@ public abstract class BaseDetailListFragment<T extends MovieUmbrella> extends Ba
                     adapter.swapData(getItemList(movie));
                 } else {
                     TextView noListItemsFound = view.findViewById(R.id.no_list_items_available);
-                    noListItemsFound.setText(noItemsFound());
+                    noListItemsFound.setText(getNoItemText());
                     noListItemsFound.setVisibility(View.VISIBLE);
                 }
             }
@@ -61,7 +61,7 @@ public abstract class BaseDetailListFragment<T extends MovieUmbrella> extends Ba
         return R.layout.list_fragment;
     }
 
-    abstract String noItemsFound();
+
 
     private boolean isItemListEmpty(Movie movie) {
         return getItemList(movie) == null || getItemList(movie).size() == 0;

@@ -20,8 +20,6 @@ public final class ListTypeAdapterFactory {
                 return new TrailersAdapter(clickListener);
             case R.string.app_adapter_reviews:
                 return new ReviewsAdapter();
-            case R.string.app_adapter_movie_details:
-                return new MovieDetailAdapter();
             default:
                 throw new RuntimeException(LIST_TYPE_ADAPTER_MSG + layoutResId + NOT_FOUND);
         }
