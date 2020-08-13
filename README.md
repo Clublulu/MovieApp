@@ -29,7 +29,7 @@ The Movie App uses the following dependencies:
 
 Below are the prerequisites and steps to be taken in order to get the app up and running:
 
-1. Make sure Android Studio 4.0 and Gradle version 4.0.1 are installed.
+1. Android Studio 4.0 and Gradle version 4.0.1 or higher should be installed.
 2. The Movie Database API contains authentication requiring a valid API key in order to consume their data.
    - Create an account with The Movie Database.
    - Log into your account and request an API Key by clicking the "API" link in the left hand side bar of the account page.
