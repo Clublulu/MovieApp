@@ -50,7 +50,7 @@ public class TrailersAdapter extends BaseListTypeAdapter<Trailer> {
         @Override
         public void onClick(View v)
         {
-            mMovieClickListener.onClickItem(getList().get(getAdapterPosition()));
+            mMovieClickListener.onClickItem(getList().get(getAdapterPosition()), null);
         }
 
         @Override

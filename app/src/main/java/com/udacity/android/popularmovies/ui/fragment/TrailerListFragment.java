@@ -1,6 +1,8 @@
 package com.udacity.android.popularmovies.ui.fragment;
 
 import android.content.Intent;
+import android.media.Image;
+import android.widget.ImageView;
 
 import com.google.android.youtube.player.YouTubeIntents;
 import com.udacity.android.popularmovies.R;
@@ -13,7 +15,7 @@ import java.util.List;
 public class TrailerListFragment extends BaseDetailListFragment<Trailer> implements MovieClickListener {
 
     @Override
-    public void onClickItem(Object item) {
+    public void onClickItem(Object item, ImageView sharedElement) {
         Intent youtubeIntent = YouTubeIntents.createPlayVideoIntent(getActivity().getApplicationContext(), ((Trailer) item).url);
         Intent chooser = Intent.createChooser(youtubeIntent, getString(R.string.youtube_intent_dialog_message));
         startActivity(chooser);

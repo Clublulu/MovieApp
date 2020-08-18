@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.udacity.android.popularmovies.R;
 import com.udacity.android.popularmovies.ui.fragment.MoviesViewPager;

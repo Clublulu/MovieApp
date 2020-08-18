@@ -3,6 +3,7 @@ package com.udacity.android.popularmovies.ui.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -35,16 +36,20 @@ public class MoviesAdapter extends BaseListTypeAdapter<Movie> {
     class PopularMoviesAdapterViewHolder extends BaseMovieListTypeViewHolder implements View.OnClickListener {
 
         public MoviesListItemBinding binding;
+        private ImageView mMoviePoster;
 
         public PopularMoviesAdapterViewHolder(MoviesListItemBinding binding) {
             super(binding.getRoot());
-            binding.getRoot().setOnClickListener(this);
             this.binding = binding;
+            binding.getRoot().setOnClickListener(this);
+            mMoviePoster = binding.getRoot().findViewById(R.id.movie_poster);
+
+
         }
 
         @Override
         public void onClick(View v) {
-            movieListener.onClickItem(getList().get(getAdapterPosition()));
+            movieListener.onClickItem(getList().get(getAdapterPosition()), mMoviePoster);
         }
 
         @Override

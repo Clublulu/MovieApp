@@ -14,12 +14,13 @@
 
 
         <ImageView
-            android:id="@+id/list_item_icon"
+            android:id="@+id/movie_poster"
             android:layout_width="match_parent"
             android:layout_height="275dp"
             android:scaleType="fitXY"
             app:imageUrl="@{movie.image}"
             android:contentDescription="@string/movie_image_content_description"
+            android:transitionName="@string/movie_poster_shared_element_transition_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
