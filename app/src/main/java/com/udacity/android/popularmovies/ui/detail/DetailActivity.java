@@ -1,5 +1,6 @@
 package com.udacity.android.popularmovies.ui.detail;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -30,8 +31,6 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView movie_cover = findViewById(R.id.movie_detail_cover);
         Picasso.get().load(movieImage).into(movie_cover);
-
-        configureViewPager();
     }
 
     private void configureViewPager() {
@@ -40,6 +39,12 @@ public class DetailActivity extends AppCompatActivity {
         moviesViewPager.addFragment(R.string.app_movie_details_fragment, mMovieId, getString(R.string.label_details));
         moviesViewPager.addFragment(R.string.app_movie_reviews_fragment, mMovieId, getString(R.string.reviews));
         mViewPager.setAdapter(moviesViewPager.getAdapter());
+    }
+
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+        configureViewPager();
     }
 
     @Override

@@ -18,7 +18,7 @@
     <dimen name="fragment_movie_detail_cardview_margin_bottom">16dp</dimen>
     <dimen name="fragment_movie_detail_cardview_margin_top">32dp</dimen>
     <dimen name="fragment_movie_detail_cardview_card_corner_radius">2dp</dimen>
-    <dimen name="fragment_movie_detail_cardview_card_elevation">2dp</dimen>
+    <dimen name="fragment_movie_detail_cardview_card_elevation">8dp</dimen>
     <dimen name="fragment_movie_detail_cardview_content_padding">16dp</dimen>
 
 
